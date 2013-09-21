@@ -5,12 +5,15 @@ using System.Text;
 
 namespace Nest
 {
-	public class AnalyzeParams
-	{
-		public string Index { get; set; }
-		public string Field { get; set; }
-        public string Analyzer { get; set; }
-        public string Filters { get; set; }
-        public string Tokenizer { get; set; }
-	}
+  //Todo: fluent descriptor me?
+  public class AnalyzeParams
+  {
+    public string Text { get; set; }
+    public string Index { get; set; }
+    public string Field { get; set; }
+    public string Analyzer { get; set; }
+    public string Filters { get; set; }
+    public string Tokenizer { get; set; }
+    internal Type Type { get; set; }
+  }
 }

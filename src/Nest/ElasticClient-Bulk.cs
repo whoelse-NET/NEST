@@ -29,9 +29,9 @@ namespace Nest
 			foreach (var operation in bulkDescriptor._Operations)
 			{
 				var command = operation._Operation;
-				var index = operation._Index ??
-				            bulkDescriptor._FixedIndex ?? 
-							new IndexNameResolver(this._connectionSettings).GetIndexForType(operation._ClrType);
+        var index = operation._Index ??
+                    bulkDescriptor._FixedIndex ??
+                    this.Infer.IndexName(operation._ClrType);
 				var typeName = operation._Type
 				               ?? bulkDescriptor._FixedType
 				               ?? this.Infer.TypeName(operation._ClrType);
@@ -58,15 +58,16 @@ namespace Nest
 				}
 			}
 			var json = sb.ToString();
-			var path = "_bulk";
-			if (!bulkDescriptor._FixedIndex.IsNullOrEmpty())
-			{
-				if (!bulkDescriptor._FixedType.IsNullOrEmpty())
-					path = bulkDescriptor._FixedType + "/" + path;
-				path = bulkDescriptor._FixedIndex + "/" + path;
-			}
-			var status = this.Connection.PostSync(path, json);
-			return this.Deserialize<BulkResponse>(status);
+      var path = this.Path.For(bulkDescriptor);
+      ConnectionStatus status;
+      if (path.Index.IsNullOrEmpty())
+        status = this.Raw.BulkPost(json, queryString: path.QueryString);
+      else if (path.Type.IsNullOrEmpty())
+        status = this.Raw.BulkPost(path.Index, body: json, queryString: path.QueryString);
+      else
+        status = this.Raw.BulkPost(path.Index, path.Type, json, queryString: path.QueryString);
+
+      return status.Deserialize<BulkResponse>();
 		}
 		
 		internal string GenerateBulkIndexCommand<T>(IEnumerable<T> objects) where T : class

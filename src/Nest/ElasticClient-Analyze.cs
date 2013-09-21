@@ -12,18 +12,16 @@ namespace Nest
 		/// <returns></returns>
 		public IAnalyzeResponse Analyze(string text)
 		{
-			var index = this._connectionSettings.DefaultIndex;
-			return this._Analyze(new AnalyzeParams() { Index = index }, text);
+			return this._Analyze(new AnalyzeParams() { Text = text });
 		}
 		/// <summary>
 		/// Analyzes specified text according to the analyzeparams passed.
 		/// </summary>
 		/// <returns>AnalyzeResponse contains a breakdown of the token under .Tokens</returns>
-		public IAnalyzeResponse Analyze(AnalyzeParams analyzeParams, string text)
+		public IAnalyzeResponse Analyze(AnalyzeParams analyzeParams)
 		{
 			analyzeParams.ThrowIfNull("analyzeParams");
-			analyzeParams.Index.ThrowIfNull("analyzeParams.Index");
-			return this._Analyze(analyzeParams, text);
+			return this._Analyze(analyzeParams);
 		}
 		/// <summary>
 		/// Analyzes text according to the current analyzer of the field in the default index set in the clientsettings.
@@ -41,30 +39,18 @@ namespace Nest
 		{
 			selector.ThrowIfNull("selector");
 			var fieldName = this.PropertyNameResolver.Resolve(selector);
-			var analyzeParams = new AnalyzeParams() { Index = index, Field = fieldName };
-			return this._Analyze(analyzeParams, text);
+			var analyzeParams = new AnalyzeParams() { Index = index, Field = fieldName, Text = text };
+			return this._Analyze(analyzeParams);
 		}
 		
-		private AnalyzeResponse _Analyze(AnalyzeParams analyzeParams, string text)
+		private AnalyzeResponse _Analyze(AnalyzeParams analyzeParams)
 		{
-			var path = this.Path.CreateIndexPath(analyzeParams.Index, "_analyze") + "?text=";
-			path += Uri.EscapeDataString(text);
-
-			if (!analyzeParams.Field.IsNullOrEmpty())
-				path += "&field=" + analyzeParams.Field;
-            else if (!analyzeParams.Analyzer.IsNullOrEmpty())
-                path += "&analyzer=" + analyzeParams.Analyzer;
-            else
-            {
-                //Build custom analyzer out of tokenizers and filters
-                if (!analyzeParams.Filters.IsNullOrEmpty())
-                    path += "&filters=" + analyzeParams.Filters;
-                if (!analyzeParams.Tokenizer.IsNullOrEmpty())
-                    path += "&tokenizer=" + analyzeParams.Tokenizer;
-            }
-
-			var status = this.Connection.GetSync(path);
-			var r = this.Deserialize<AnalyzeResponse>(status);
+      var path = this.Path.For(analyzeParams);
+		  var status = path.Index.IsNullOrEmpty() 
+        ? this.Raw.AnalyzeGet(path.QueryString) 
+        : this.Raw.AnalyzeGet(path.Index, path.QueryString);
+        
+			var r = status.Deserialize<AnalyzeResponse>();
 			return r;
 		}
 	}

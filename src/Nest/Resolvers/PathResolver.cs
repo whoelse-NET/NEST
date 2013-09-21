@@ -10,8 +10,9 @@ namespace Nest.Resolvers
 	public class PathResolver
 	{
     private ElasticInferrer Infer { get; set; } 
-
 		private readonly IConnectionSettings _connectionSettings;
+
+	 
     
     public PathResolver(IConnectionSettings connectionSettings)
     {
@@ -53,8 +54,39 @@ namespace Nest.Resolvers
       };
 		}
     
+    public IndexPath For(AnalyzeParams analyzeParams)
+    {
+      var index = analyzeParams.Index;
+      if (index.IsNullOrEmpty())
+      {
+        index = analyzeParams.Type != null ? this.Infer.TypeName(analyzeParams.Type) : null;
+      }
+      var queryString = new NameValueCollection();
+      queryString.Add("text", analyzeParams.Text);
 
-		
+      if (!analyzeParams.Field.IsNullOrEmpty())
+        queryString.Add("field", analyzeParams.Field);
+      else if (!analyzeParams.Analyzer.IsNullOrEmpty())
+        queryString.Add("analyzer", analyzeParams.Analyzer);
+      else
+      {
+        //Build custom analyzer out of tokenizers and filters
+        if (!analyzeParams.Filters.IsNullOrEmpty())
+          queryString.Add("filters", analyzeParams.Filters);
+        if (!analyzeParams.Tokenizer.IsNullOrEmpty())
+          queryString.Add("tokenizer", analyzeParams.Tokenizer);
+      }
+      return new IndexPath { Index = index, QueryString = queryString };
+    }
+
+		public TypePath For(BulkDescriptor bulkDescriptor)
+		{
+      return new TypePath
+      {
+        Index = bulkDescriptor._FixedIndex,
+        Type = bulkDescriptor._FixedType
+      };
+		}
 		
 		
 		public string CreatePathFor<T>(T @object, string index = null, string type = null, string id = null) where T : class

@@ -13,7 +13,14 @@ namespace Nest
     private TypeNameResolver TypeNameResolver { get; set; }
     private IdResolver IdResolver { get; set; }
     private IndexNameResolver IndexNameResolver { get; set; }
-
+    
+    public string DefaultIndex
+    {
+      get
+      {
+        return this._connectionSettings.DefaultIndex;
+      }
+    }
 
     public ElasticInferrer(IConnectionSettings connectionSettings)
     {

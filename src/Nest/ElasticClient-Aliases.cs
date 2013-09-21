@@ -30,20 +30,20 @@ namespace Nest
 			return cmd;
 		}
 
-	    /// <summary>
-	    /// Get all the indices pointing to an alias
-	    /// </summary>
-	    public IEnumerable<string> GetIndicesPointingToAlias(string alias)
-	    {
-	        var path = this.Path.CreateIndexPath(alias, "/_aliases");
-	        var status = this.Connection.GetSync(path);
-	        if (!status.Success)
-	        {
-	            return Enumerable.Empty<string>();
-	        }
-	        var r = this.Deserialize<Dictionary<string, object>>(status.Result);
-	        return r == null ? Enumerable.Empty<string>() : r.Keys;
-	    }
+    /// <summary>
+    /// Get all the indices pointing to an alias
+    /// </summary>
+    public IEnumerable<string> GetIndicesPointingToAlias(string alias)
+    {
+        var path = this.Path.CreateIndexPath(alias, "/_aliases");
+        var status = this.Connection.GetSync(path);
+        if (!status.Success)
+        {
+            return Enumerable.Empty<string>();
+        }
+        var r = this.Deserialize<Dictionary<string, object>>(status.Result);
+        return r == null ? Enumerable.Empty<string>() : r.Keys;
+    }
 
 	    /// <summary>
 		/// Repoint an alias from a set of old indices to a set of new indices in one operation
@@ -200,7 +200,7 @@ namespace Nest
 			query = _aliasBody.F(query);
       var status = this.Raw.IndicesAliasesPost(query);
 
-			var r = this.Deserialize<IndicesOperationResponse>(status);
+			var r = status.Deserialize<IndicesOperationResponse>();
 			return r;
 		}
 	}

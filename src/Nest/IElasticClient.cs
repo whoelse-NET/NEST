@@ -23,7 +23,7 @@ namespace Nest
 		IBulkResponse Bulk(Func<BulkDescriptor, BulkDescriptor> bulkSelector);
 		IBulkResponse Bulk(BulkDescriptor bulkDescriptor);
 
-		IAnalyzeResponse Analyze(AnalyzeParams analyzeParams, string text);
+		IAnalyzeResponse Analyze(AnalyzeParams analyzeParams);
 		IAnalyzeResponse Analyze(string text);
 		IAnalyzeResponse Analyze<T>(System.Linq.Expressions.Expression<Func<T, object>> selector, string index, string text) where T : class;
 		IAnalyzeResponse Analyze<T>(System.Linq.Expressions.Expression<Func<T, object>> selector, string text) where T : class;
