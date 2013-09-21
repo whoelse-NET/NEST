@@ -4,13 +4,13 @@ using NUnit.Framework;
 
 namespace Nest.Tests.Unit.Search.Facets.ResponseDeserialisation
 {
-    [TestFixture]
-    public class when_date_histogram_query_has_no_value_field
+  [TestFixture]
+  public class when_date_histogram_query_has_no_value_field
+  {
+    [Test]
+    public void should_de_serialise_date_entry_histogram()
     {
-        [Test]
-        public void should_de_serialise_date_entry_histogram()
-        {
-            var widget1Histogram = new[]
+      var widget1Histogram = new[]
                                    {
                                        new DateEntry
                                        {
@@ -24,7 +24,7 @@ namespace Nest.Tests.Unit.Search.Facets.ResponseDeserialisation
                                        }
                                    };
 
-            var widget2Histogram = new[]
+      var widget2Histogram = new[]
                                    {
                                        new DateEntry
                                        {
@@ -38,22 +38,22 @@ namespace Nest.Tests.Unit.Search.Facets.ResponseDeserialisation
                                        }
                                    };
 
-            const string mockJsonResponse =
-                @"{""took"":378,""timed_out"":false,""_shards"":{""total"":4,""successful"":4,""failed"":0},""hits"":{""total"":3700979,""max_score"":1,""hits"":[]},""facets"":{""widget_1:histogram"":{""_type"":""date_histogram"",""entries"":[{""time"":1351728000000,""count"":5181},{""time"":1354320000000,""count"":5509}]},""widget_2:histogram"":{""_type"":""date_histogram"",""entries"":[{""time"":1330560000000,""count"":173},{""time"":1333238400000,""count"":162}]},""widget_1:terms"":{""_type"":""terms"",""missing"":0,""total"":14797,""other"":0,""terms"":[{""term"":""widget 1"",""count"":14797}]},""widget_2:terms"":{""_type"":""terms"",""missing"":0,""total"":2002,""other"":0,""terms"":[{""term"":""widget 2"",""count"":2002}]}}}";
+      const string mockJsonResponse =
+          @"{""took"":378,""timed_out"":false,""_shards"":{""total"":4,""successful"":4,""failed"":0},""hits"":{""total"":3700979,""max_score"":1,""hits"":[]},""facets"":{""widget_1:histogram"":{""_type"":""date_histogram"",""entries"":[{""time"":1351728000000,""count"":5181},{""time"":1354320000000,""count"":5509}]},""widget_2:histogram"":{""_type"":""date_histogram"",""entries"":[{""time"":1330560000000,""count"":173},{""time"":1333238400000,""count"":162}]},""widget_1:terms"":{""_type"":""terms"",""missing"":0,""total"":14797,""other"":0,""terms"":[{""term"":""widget 1"",""count"":14797}]},""widget_2:terms"":{""_type"":""terms"",""missing"":0,""total"":2002,""other"":0,""terms"":[{""term"":""widget 2"",""count"":2002}]}}}";
 
-			var connectionSettings = new ConnectionSettings(Test.Default.Uri).SetDefaultIndex("index");
-            var connectionMockery = new Mock<IConnection>();
+      var connectionSettings = new ConnectionSettings(Test.Default.Uri).SetDefaultIndex("index");
+      var connectionMockery = new Mock<IConnection>();
 
-            connectionMockery
-                .Setup(status => status.PostSync("index/_search", "{}"))
-                .Returns(new ConnectionStatus(connectionSettings, mockJsonResponse));
+      connectionMockery
+          .Setup(status => status.PostSync("index/_search", "{}"))
+          .Returns(new ConnectionStatus(connectionSettings, mockJsonResponse));
 
-            var client = new ElasticClient(connectionSettings, connectionMockery.Object);
+      var client = new ElasticClient(connectionSettings, connectionMockery.Object);
 
-            var response = client.Search(descriptor => descriptor);
+      var response = client.Search(descriptor => descriptor);
 
-            Assert.That(response.FacetItems<DateEntry>("widget_1:histogram"), DateEntriesConstraint.Sequence(widget1Histogram));
-            Assert.That(response.FacetItems<DateEntry>("widget_2:histogram"), DateEntriesConstraint.Sequence(widget2Histogram));
-        }
+      Assert.That(response.FacetItems<DateEntry>("widget_1:histogram"), DateEntriesConstraint.Sequence(widget1Histogram));
+      Assert.That(response.FacetItems<DateEntry>("widget_2:histogram"), DateEntriesConstraint.Sequence(widget2Histogram));
     }
+  }
 }

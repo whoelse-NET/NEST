@@ -55,7 +55,7 @@ namespace Nest
 				commands.Add(_createCommand("remove", new AliasParams { Index = i, Alias = alias }));
 			foreach (var i in newIndices)
 				commands.Add(_createCommand("add", new AliasParams { Index = i, Alias = alias }));
-			return this._Alias(string.Join(", ", commands));
+			return this._Aliases(string.Join(", ", commands));
 		}
 
 		/// <summary>
@@ -71,7 +71,7 @@ namespace Nest
 				aliasParam.Index = i;
 				commands.Add(_createCommand("add", aliasParam));
 			}
-			return this._Alias(string.Join(", ", commands));
+			return this._Aliases(string.Join(", ", commands));
 		}
 
 		/// <summary>
@@ -81,7 +81,7 @@ namespace Nest
 		{
 			var index = this._connectionSettings.DefaultIndex;
 			var q = _createCommand("add", new AliasParams { Index = index, Alias = alias });
-			return this._Alias(q);
+			return this._Aliases(q);
 		}
 		/// <summary>
 		/// Add an alias to the specified index
@@ -89,7 +89,7 @@ namespace Nest
 		public IIndicesOperationResponse Alias(string index, string alias)
 		{
 			var q = _createCommand("add", new AliasParams { Index = index, Alias = alias });
-			return this._Alias(q);
+			return this._Aliases(q);
 		}
 		/// <summary>
 		/// Add multiple aliases to the specified index
@@ -98,7 +98,7 @@ namespace Nest
 		{
 			aliases.Select(a => _createCommand("add", new AliasParams { Index = index, Alias = a }));
 			var q = string.Join(",", aliases);
-			return this._Alias(q);
+			return this._Aliases(q);
 		}
 		/// <summary>
 		/// Add multiple aliases to the default index
@@ -108,7 +108,7 @@ namespace Nest
 			var index = this._connectionSettings.DefaultIndex;
 			aliases.Select(a => _createCommand("add", new AliasParams { Index = index, Alias = a }));
 			var q = string.Join(",", aliases);
-			return this._Alias(q);
+			return this._Aliases(q);
 		}
 		/// <summary>
 		/// Remove an alias for the default index
@@ -117,7 +117,7 @@ namespace Nest
 		{
 			var index = this._connectionSettings.DefaultIndex;
 			var q = _createCommand("remove", new AliasParams { Index = index, Alias = alias });
-			return this._Alias(q);
+			return this._Aliases(q);
 		}
 		/// <summary>
 		/// Remove an alias for the specified index
@@ -125,7 +125,7 @@ namespace Nest
 		public IIndicesOperationResponse RemoveAlias(string index, string alias)
 		{
 			var q = _createCommand("remove", new AliasParams { Index = index, Alias = alias });
-			return this._Alias(q);
+			return this._Aliases(q);
 		}
 		/// <summary>
 		/// Remove multiple alias for the default index
@@ -135,7 +135,7 @@ namespace Nest
 			var index = this._connectionSettings.DefaultIndex;
 			aliases.Select(a => _createCommand("remove", new AliasParams { Index = index, Alias = a }));
 			var q = string.Join(",", aliases);
-			return this._Alias(q);
+			return this._Aliases(q);
 		}
 		/// <summary>
 		/// Remove multiple alias for the specified index
@@ -144,7 +144,7 @@ namespace Nest
 		{
 			aliases.Select(a => _createCommand("remove", new AliasParams { Index = index, Alias = a }));
 			var q = string.Join(",", aliases);
-			return this._Alias(q);
+			return this._Aliases(q);
 		}
 		/// <summary>
 		/// Associate multiple indices with one alias
@@ -153,7 +153,7 @@ namespace Nest
 		{
 			indices.Select(i => _createCommand("add", new AliasParams { Index = i, Alias = alias }));
 			var q = string.Join(",", indices);
-			return this._Alias(q);
+			return this._Aliases(q);
 		}
 		/// <summary>
 		/// Rename an old alias for index to a new alias in one operation
@@ -162,14 +162,14 @@ namespace Nest
 		{
 			var r = _createCommand("remove", new AliasParams { Index = index, Alias = oldAlias });
 			var a = _createCommand("add", new AliasParams { Index = index, Alias = newAlias });
-			return this._Alias(r + ", " + a);
+			return this._Aliases(r + ", " + a);
 		}
 		/// <summary>
 		/// Freeform alias overload for complete control of all the aspects (does an add operation)
 		/// </summary>
 		public IIndicesOperationResponse Alias(AliasParams aliasParams)
 		{
-			return this._Alias(_createCommand("add", aliasParams));
+			return this._Aliases(_createCommand("add", aliasParams));
 		}
 		/// <summary>
 		/// Freeform multi alias overload for complete control of all the aspects (does multiple add operations)
@@ -178,14 +178,14 @@ namespace Nest
 		{
 			var cmds = aliases.Select(a => _aliasBody.F(_createCommand("add", a)));
 			var q = string.Join(",", aliases);
-			return this._Alias(q);
+			return this._Aliases(q);
 		}
 		/// <summary>
 		/// Freeform remove alias overload for complete control of all the aspects
 		/// </summary>
 		public IIndicesOperationResponse RemoveAlias(AliasParams aliasParams)
 		{
-			return this._Alias(_createCommand("remove", aliasParams));
+			return this._Aliases(_createCommand("remove", aliasParams));
 		}
 		/// <summary>
 		/// Freeform remove multi alias overload for complete control of all the aspects
@@ -194,13 +194,11 @@ namespace Nest
 		{
 			var cmds = aliases.Select(a => _aliasBody.F(_createCommand("remove", a)));
 			var q = string.Join(",", aliases);
-			return this._Alias(q);
+			return this._Aliases(q);
 		}
-		private IndicesOperationResponse _Alias(string query)
-		{
-			var path = "/_aliases";
+		private IndicesOperationResponse _Aliases(string query)		{
 			query = _aliasBody.F(query);
-			var status = this.Connection.PostSync(path, query);
+      var status = this.Raw.IndicesAliasesPost(query);
 
 			var r = this.Deserialize<IndicesOperationResponse>(status);
 			return r;

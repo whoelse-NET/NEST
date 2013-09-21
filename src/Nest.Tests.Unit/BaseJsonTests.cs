@@ -13,7 +13,6 @@ using Nest.Resolvers.Converters;
 using Nest.Tests.MockData.Domain;
 using System.Reflection;
 using System.IO;
-using Moq;
 
 namespace Nest.Tests.Unit
 {
