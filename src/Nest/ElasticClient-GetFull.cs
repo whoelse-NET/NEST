@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
@@ -17,7 +18,7 @@ namespace Nest
 		/// <returns>an instance of T</returns>
 		public IGetResponse<T> GetFull<T>(int id) where T : class
 		{
-			return this.GetFull<T>(id.ToString());
+			return this.GetFull<T>(id.ToString(CultureInfo.InvariantCulture));
 		}
 		/// <summary>
 		/// Gets a document of T by id in the default index and the inferred typename for T
@@ -25,12 +26,7 @@ namespace Nest
 		/// <returns>an instance of T</returns>
 		public IGetResponse<T> GetFull<T>(string id) where T : class
 		{
-			var index = this.Infer.IndexName<T>();
-			index.ThrowIfNullOrEmpty("Cannot infer default index for current connection.");
-
-			var typeName = this.Infer.TypeName<T>();
-			var path = this.PathResolver.CreateIndexTypeIdPath(index, typeName, id);
-			return this._GetFull<T>(path);
+			return this.GetFull<T>(a=>a.Id(id));
 		}
 		/// <summary>
 		/// Gets a document of T by id in the specified index and the specified typename
@@ -38,8 +34,7 @@ namespace Nest
 		/// <returns>an instance of T</returns>
 		public IGetResponse<T> GetFull<T>(string index, string type, string id) where T : class
 		{
-			var path = this.PathResolver.CreateIndexTypeIdPath(index, type, id);
-			return this._GetFull<T>(path);
+			return this.GetFull<T>(a => a.Index(index).Type(type).Id(id));
 		}
 		/// <summary>
 		/// Gets a document of T by id in the specified index and the specified typename
@@ -47,8 +42,7 @@ namespace Nest
 		/// <returns>an instance of T</returns>
 		public IGetResponse<T> GetFull<T>(string index, string type, int id) where T : class
 		{
-			var path = this.PathResolver.CreateIndexTypeIdPath(index, type, id.ToString());
-			return this._GetFull<T>(path);
+			return this.GetFull<T>(index, type, id.ToString(CultureInfo.InvariantCulture));
 		}
 		
 
@@ -58,16 +52,14 @@ namespace Nest
 			var d = new GetDescriptor<T>();
 			getSelector(d);
 
-			d._Id.ThrowIfNullOrEmpty("Id on getselector");
-
-			var p = new PathResolver(this._connectionSettings);
-			var path = p.CreateGetPath<T>(d);
-			return this._GetFull<T>(path);
+			return this._GetFull<T>(d);
 		}
 
-		private IGetResponse<T> _GetFull<T>(string path) where T : class
+		private IGetResponse<T> _GetFull<T>(GetDescriptor<T> descriptor) where T : class
 		{
-			var response = this.Connection.GetSync(path);
+      var path = this.Path.For(descriptor);
+
+      var response = this.Raw.Get(path.Index, path.Type, path.Id, path.QueryString);
 			var getResponse = this.Deserialize<GetResponse<T>>(response);
 
 			if (response.Result != null)

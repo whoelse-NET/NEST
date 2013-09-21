@@ -34,7 +34,7 @@ namespace Nest
 		/// <returns></returns>
 		public IHealthResponse Health(HealthParams healthParams)
 		{
-		    var path = this.PathResolver.CreateClusterPath("health");
+		    var path = this.Path.CreateClusterPath("health");
 			return this._Health(path, healthParams);
 		}
 
@@ -45,7 +45,7 @@ namespace Nest
         /// <returns></returns>
         public IHealthResponse Health(IEnumerable<string> indices, HealthParams healthParams)
         {
-            var path = this.PathResolver.CreateClusterPath(indices, "health");
+            var path = this.Path.CreateClusterPath(indices, "health");
             return this._Health(path, healthParams);
         } 
 

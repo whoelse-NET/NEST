@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -11,23 +12,27 @@ namespace Nest.Resolvers
     private ElasticInferrer Infer { get; set; } 
 
 		private readonly IConnectionSettings _connectionSettings;
-
-		public PathResolver(IConnectionSettings connectionSettings)
-		{
-			connectionSettings.ThrowIfNull("hasDefaultIndices");
-			this._connectionSettings = connectionSettings;
+    
+    public PathResolver(IConnectionSettings connectionSettings)
+    {
+      connectionSettings.ThrowIfNull("hasDefaultIndices");
+      this._connectionSettings = connectionSettings;
       this.Infer = new ElasticInferrer(this._connectionSettings);
-		}
-		
-		public string CreateGetPath<T>(GetDescriptor<T> d) where T : class
+    }
+
+    private string ResolveTypeNameMarker<T>(TypeNameMarker marker) where T : class
+    {
+      var type = marker ?? TypeNameMarker.Create<T>();
+      return type.Resolve(this._connectionSettings);
+    }
+    
+    public DocumentPath For<T>(GetDescriptor<T> d) where T : class
 		{
 			var index = d._Index ?? this.Infer.IndexName<T>();
-			var type = d._Type ?? this.Infer.TypeName<T>();
+			var type = this.ResolveTypeNameMarker<T>(d._Type);
 			var id = d._Id;
-			id.ThrowIfNullOrEmpty("id");
-
-			var path = "/{0}/{1}/{2}".EscapedFormat(index, type.Resolve(this._connectionSettings), id);
-			var urlParams = new Dictionary<string, string>();
+      
+      var urlParams = new NameValueCollection();
 			if (d._Refresh.HasValue)
 				urlParams.Add("refresh", d._Refresh.Value.ToString().ToLower());
 			if (d._Realtime.HasValue)
@@ -39,8 +44,18 @@ namespace Nest.Resolvers
 			if (d._Fields.HasAny())
 				urlParams.Add("fields", string.Join(",", d._Fields));
 
-			return path + this.ToQueryString(urlParams);
+      return new DocumentPath
+      {
+        Id = id,
+        Index = index,
+        Type = type,
+        QueryString = urlParams
+      };
 		}
+    
+
+		
+		
 		
 		public string CreatePathFor<T>(T @object, string index = null, string type = null, string id = null) where T : class
 		{

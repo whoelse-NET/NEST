@@ -98,7 +98,7 @@ namespace Nest
 			var type = descriptor._Type ?? this.Infer.TypeName<T>();
 			var percolateJson = this.Serialize(descriptor);
 
-			var path = this.PathResolver.CreateIndexTypePath(index, type, "_percolate");
+			var path = this.Path.CreateIndexTypePath(index, type, "_percolate");
 			return new PathAndData() { Path = path, Data = percolateJson };
 		}
 	}

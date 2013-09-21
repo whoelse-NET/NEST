@@ -32,7 +32,7 @@ namespace Nest
 	  public IBulkResponse DeleteMany<T>(IEnumerable<T> @objects, SimpleBulkParameters bulkParameters) where T : class
 	  {
 		  var json = this.GenerateBulkDeleteCommand(@objects);
-		  var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+		  var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 		  return this._deleteToBulkPath(path, json);
 	  }
 
@@ -44,7 +44,7 @@ namespace Nest
 	  public IBulkResponse DeleteMany<T>(IEnumerable<BulkParameters<T>> @objects, SimpleBulkParameters bulkParameters) where T : class
 	  {
 		  var json = this.GenerateBulkDeleteCommand(@objects);
-		  var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+		  var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 		  return this._deleteToBulkPath(path, json);
 	  }
 
@@ -74,7 +74,7 @@ namespace Nest
 	  public IBulkResponse DeleteMany<T>(IEnumerable<T> objects, string index, SimpleBulkParameters bulkParameters) where T : class
 	  {
 		  var json = this.GenerateBulkDeleteCommand(@objects, index);
-		  var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+		  var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 		  return this._deleteToBulkPath(path, json);
 	  }
 
@@ -86,7 +86,7 @@ namespace Nest
 	  public IBulkResponse DeleteMany<T>(IEnumerable<BulkParameters<T>> objects, string index, SimpleBulkParameters bulkParameters) where T : class
 	  {
 		  var json = this.GenerateBulkDeleteCommand(@objects, index);
-		  var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+		  var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 		  return this._deleteToBulkPath(path, json);
 	  }
 
@@ -116,7 +116,7 @@ namespace Nest
 	  public IBulkResponse DeleteMany<T>(IEnumerable<T> objects, string index, string type, SimpleBulkParameters bulkParameters) where T : class
 	  {
 		  var json = this.GenerateBulkDeleteCommand(@objects, index, type);
-		  var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+		  var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 		  return this._deleteToBulkPath(path, json);
 	  }
 
@@ -128,7 +128,7 @@ namespace Nest
 	  public IBulkResponse DeleteMany<T>(IEnumerable<BulkParameters<T>> objects, string index, string type, SimpleBulkParameters bulkParameters) where T : class
 	  {
 		  var json = this.GenerateBulkDeleteCommand(@objects, index, type);
-		  var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+		  var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 		  return this._deleteToBulkPath(path, json);
 	  }
 
@@ -158,7 +158,7 @@ namespace Nest
 	  public Task<IBulkResponse> DeleteManyAsync<T>(IEnumerable<T> objects, SimpleBulkParameters bulkParameters) where T : class
 	  {
 		  var json = this.GenerateBulkDeleteCommand(@objects);
-		  var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+		  var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 		  return this._deleteToBulkPathAsync(path, json);
 	  }
 
@@ -170,7 +170,7 @@ namespace Nest
 	  public Task<IBulkResponse> DeleteManyAsync<T>(IEnumerable<BulkParameters<T>> objects, SimpleBulkParameters bulkParameters) where T : class
 	  {
 		  var json = this.GenerateBulkDeleteCommand(@objects);
-		  var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+		  var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 		  return this._deleteToBulkPathAsync(path, json);
 	  }
 
@@ -200,7 +200,7 @@ namespace Nest
 	  public Task<IBulkResponse> DeleteManyAsync<T>(IEnumerable<T> objects, string index, SimpleBulkParameters bulkParameters) where T : class
 	  {
 		  var json = this.GenerateBulkDeleteCommand(@objects, index);
-		  var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+		  var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 		  return this._deleteToBulkPathAsync(path, json);
 	  }
 
@@ -212,7 +212,7 @@ namespace Nest
 	  public Task<IBulkResponse> DeleteManyAsync<T>(IEnumerable<BulkParameters<T>> objects, string index, SimpleBulkParameters bulkParameters) where T : class
 	  {
 		  var json = this.GenerateBulkDeleteCommand(@objects, index);
-		  var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+		  var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 		  return this._deleteToBulkPathAsync(path, json);
 	  }
 
@@ -242,7 +242,7 @@ namespace Nest
 	  public Task<IBulkResponse> DeleteManyAsync<T>(IEnumerable<T> objects, string index, SimpleBulkParameters bulkParameters, string type) where T : class
 	  {
 		  var json = this.GenerateBulkDeleteCommand(@objects, index, type);
-		  var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+		  var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 		  return this._deleteToBulkPathAsync(path, json);
 	  }
 
@@ -254,7 +254,7 @@ namespace Nest
 	  public Task<IBulkResponse> DeleteManyAsync<T>(IEnumerable<BulkParameters<T>> objects, string index, SimpleBulkParameters bulkParameters, string type) where T : class
 	  {
 		  var json = this.GenerateBulkDeleteCommand(@objects, index, type);
-		  var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+		  var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 		  return this._deleteToBulkPathAsync(path, json);
 	  }
   }

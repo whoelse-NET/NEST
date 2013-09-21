@@ -11,7 +11,7 @@ namespace Nest
     /// </summary>
     public IDeleteResponse Delete<T>(T @object) where T : class
     {
-      var path = this.PathResolver.CreatePathFor<T>(@object);
+      var path = this.Path.CreatePathFor<T>(@object);
       return this._deleteToPath(path);
     }
     /// <summary>
@@ -19,7 +19,7 @@ namespace Nest
     /// </summary>
     public IDeleteResponse Delete<T>(T @object, string index) where T : class
     {
-      var path = this.PathResolver.CreatePathFor<T>(@object, index);
+      var path = this.Path.CreatePathFor<T>(@object, index);
       return this._deleteToPath(path);
     }
     /// <summary>
@@ -27,7 +27,7 @@ namespace Nest
     /// </summary>
     public IDeleteResponse Delete<T>(T @object, string index, string type) where T : class
     {
-      var path = this.PathResolver.CreatePathFor<T>(@object, index, type);
+      var path = this.Path.CreatePathFor<T>(@object, index, type);
       return this._deleteToPath(path);
     }
     /// <summary>
@@ -36,8 +36,8 @@ namespace Nest
     /// <param name="deleteParameters">Allows you to pass in additional delete parameters such as version and routing</param>	
     public IDeleteResponse Delete<T>(T @object, DeleteParameters deleteParameters) where T : class
     {
-      var path = this.PathResolver.CreatePathFor<T>(@object);
-      path = this.PathResolver.AppendParametersToPath(path, deleteParameters);
+      var path = this.Path.CreatePathFor<T>(@object);
+      path = this.Path.AppendParametersToPath(path, deleteParameters);
       return this._deleteToPath(path);
     }
     /// <summary>
@@ -46,8 +46,8 @@ namespace Nest
     /// <param name="deleteParameters">Allows you to pass in additional delete parameters such as version and routing</param>
     public IDeleteResponse Delete<T>(T @object, string index, DeleteParameters deleteParameters) where T : class
     {
-      var path = this.PathResolver.CreatePathFor<T>(@object, index);
-      path = this.PathResolver.AppendParametersToPath(path, deleteParameters);
+      var path = this.Path.CreatePathFor<T>(@object, index);
+      path = this.Path.AppendParametersToPath(path, deleteParameters);
       return this._deleteToPath(path);
     }
     /// <summary>
@@ -56,8 +56,8 @@ namespace Nest
     /// <param name="deleteParameters">Allows you to pass in additional delete parameters such as version and routing</param>
     public IDeleteResponse Delete<T>(T @object, string index, string type, DeleteParameters deleteParameters) where T : class
     {
-      var path = this.PathResolver.CreatePathFor<T>(@object, index, type);
-      path = this.PathResolver.AppendParametersToPath(path, deleteParameters);
+      var path = this.Path.CreatePathFor<T>(@object, index, type);
+      path = this.Path.AppendParametersToPath(path, deleteParameters);
       return this._deleteToPath(path);
     }
 
@@ -66,7 +66,7 @@ namespace Nest
     /// </summary>
     public Task<IDeleteResponse> DeleteAsync<T>(T @object) where T : class
     {
-      var path = this.PathResolver.CreatePathFor<T>(@object);
+      var path = this.Path.CreatePathFor<T>(@object);
       return this._deleteToPathAsync(path);
     }
     /// <summary>
@@ -74,7 +74,7 @@ namespace Nest
     /// </summary>
     public Task<IDeleteResponse> DeleteAsync<T>(T @object, string index) where T : class
     {
-      var path = this.PathResolver.CreatePathFor<T>(@object, index);
+      var path = this.Path.CreatePathFor<T>(@object, index);
       return this._deleteToPathAsync(path);
     }
     /// <summary>
@@ -82,7 +82,7 @@ namespace Nest
     /// </summary>
     public Task<IDeleteResponse> DeleteAsync<T>(T @object, string index, string type) where T : class
     {
-      var path = this.PathResolver.CreatePathFor<T>(@object, index, type);
+      var path = this.Path.CreatePathFor<T>(@object, index, type);
       return this._deleteToPathAsync(path);
     }
     /// Asynchronously delete the object in the inferred type for T in the default index specified in the client settings
@@ -90,8 +90,8 @@ namespace Nest
     /// <param name="deleteParameters">Allows you to pass in additional delete parameters such as version and routing</param>	
     public Task<IDeleteResponse> DeleteAsync<T>(T @object, DeleteParameters deleteParameters) where T : class
     {
-      var path = this.PathResolver.CreatePathFor<T>(@object);
-      path = this.PathResolver.AppendParametersToPath(path, deleteParameters);
+      var path = this.Path.CreatePathFor<T>(@object);
+      path = this.Path.AppendParametersToPath(path, deleteParameters);
       return this._deleteToPathAsync(path);
     }
     /// <summary>
@@ -100,8 +100,8 @@ namespace Nest
     /// <param name="deleteParameters">Allows you to pass in additional delete parameters such as version and routing</param>
     public Task<IDeleteResponse> DeleteAsync<T>(T @object, string index, DeleteParameters deleteParameters) where T : class
     {
-      var path = this.PathResolver.CreatePathFor<T>(@object, index);
-      path = this.PathResolver.AppendParametersToPath(path, deleteParameters);
+      var path = this.Path.CreatePathFor<T>(@object, index);
+      path = this.Path.AppendParametersToPath(path, deleteParameters);
       return this._deleteToPathAsync(path);
     }
     /// <summary>
@@ -110,8 +110,8 @@ namespace Nest
     /// <param name="deleteParameters">Allows you to pass in additional delete parameters such as version and routing</param>
     public Task<IDeleteResponse> DeleteAsync<T>(T @object, string index, string type, DeleteParameters deleteParameters) where T : class
     {
-      var path = this.PathResolver.CreatePathFor<T>(@object, index, type);
-      path = this.PathResolver.AppendParametersToPath(path, deleteParameters);
+      var path = this.Path.CreatePathFor<T>(@object, index, type);
+      path = this.Path.AppendParametersToPath(path, deleteParameters);
       return this._deleteToPathAsync(path);
     }
 

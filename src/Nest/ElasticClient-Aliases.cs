@@ -35,7 +35,7 @@ namespace Nest
 	    /// </summary>
 	    public IEnumerable<string> GetIndicesPointingToAlias(string alias)
 	    {
-	        var path = this.PathResolver.CreateIndexPath(alias, "/_aliases");
+	        var path = this.Path.CreateIndexPath(alias, "/_aliases");
 	        var status = this.Connection.GetSync(path);
 	        if (!status.Success)
 	        {

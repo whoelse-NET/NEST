@@ -69,7 +69,7 @@ namespace Nest
 			//loop through matches, since each key may be used more than once (and with a different format string)
 			foreach (Match m in attributeRegex.Matches(formatString))
 			{
-				string replacement = m.ToString();
+				string replacement = Uri.EscapeDataString(m.ToString());
 				if (m.Groups[2].Length > 0) //matched {foo:SomeFormat}
 				{
 					//do a double string.Format - first to build the proper format string, and then to format the replacement value
@@ -78,7 +78,7 @@ namespace Nest
 				}
 				else //matched {foo}
 				{
-					replacement = (replacementValue ?? string.Empty).ToString();
+					replacement = Uri.EscapeDataString((replacementValue ?? string.Empty).ToString());
 				}
 				//perform replacements, one match at a time
 				result = result.Replace(m.ToString(), replacement);  //attributeRegex.Replace(result, replacement, 1);

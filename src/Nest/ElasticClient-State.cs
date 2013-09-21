@@ -9,7 +9,7 @@ namespace Nest
         /// </summary>
         public IClusterStateResponse ClusterState(ClusterStateInfo stateInfo, IEnumerable<string> indices = null)
         {
-            var path = this.PathResolver.CreateClusterPath("state");
+            var path = this.Path.CreateClusterPath("state");
 
             var options = new List<string>();
             if (indices != null && indices.HasAny() && (!stateInfo.HasFlag(ClusterStateInfo.ExcludeMetadata)))

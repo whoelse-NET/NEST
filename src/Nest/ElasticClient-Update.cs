@@ -52,7 +52,7 @@ namespace Nest
             if (s._RetriesOnConflict.HasValue)
                 querystringPairs.Add("retries_on_conflict=" + s._RetriesOnConflict);
 
-            return this.PathResolver.CreateIndexTypeIdPath(index, type, id, "_update") + "/?" + string.Join("&", querystringPairs);
+            return this.Path.CreateIndexTypeIdPath(index, type, id, "_update") + "/?" + string.Join("&", querystringPairs);
 		}
 
 

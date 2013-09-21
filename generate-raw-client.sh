@@ -203,11 +203,11 @@ cat src/Generated/tmp.txt | while read LINE ; do
 
 		# If the current verb is GET or HEAD we don't have a body to pass along
 		if [ "$VERB" == "GET" ]; then
-			printf "\t\treturn this.DoRequest$Async(\"$VERB\", path, queryString);\n"
+			printf "\t\treturn this.DoRequest$Async(\"$VERB\", path, queryString: queryString);\n"
 		elif [ "$VERB" == "HEAD" ]; then
-			printf "\t\treturn this.DoRequest$Async(\"$VERB\", path, queryString);\n"
+			printf "\t\treturn this.DoRequest$Async(\"$VERB\", path, queryString: queryString);\n"
 		else 
-			printf "\t\treturn this.DoRequest$Async(\"$VERB\", path, body, queryString);\n"
+			printf "\t\treturn this.DoRequest$Async(\"$VERB\", path, data: body, queryString: queryString);\n"
 		fi
 
 		printf "\t}\n"

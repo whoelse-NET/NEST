@@ -19,7 +19,7 @@ namespace Nest
         {
             var search = new SearchDescriptor<dynamic>();
             var descriptor = searcher(search);
-            var path = this.PathResolver.GetSearchPathForDynamic(descriptor);
+            var path = this.Path.GetSearchPathForDynamic(descriptor);
             var query = this.Serialize(descriptor);
 
             ConnectionStatus status = this.Connection.PostSync(path, query);
@@ -57,7 +57,7 @@ namespace Nest
         public IQueryResponse<TResult> Search<T, TResult>(SearchDescriptor<T> descriptor) where T : class where TResult : class
         {
             var query = this.Serialize(descriptor);
-            var path = this.PathResolver.GetSearchPathForTyped(descriptor);
+            var path = this.Path.GetSearchPathForTyped(descriptor);
             var status = this.Connection.PostSync(path, query);
             return this.GetParsedResponse<T, TResult>(status, descriptor);
         }
@@ -71,7 +71,7 @@ namespace Nest
             var descriptor = new SearchDescriptor<T>();
 
             if (string.IsNullOrEmpty(path))
-                path = this.PathResolver.GetSearchPathForTyped(descriptor);
+                path = this.Path.GetSearchPathForTyped(descriptor);
 
             ConnectionStatus status = this.Connection.PostSync(path, query);
             var r = this.GetParsedResponse<T, TResult>(status, descriptor);
@@ -87,7 +87,7 @@ namespace Nest
             var descriptor = new SearchDescriptor<T>();
 
             if (string.IsNullOrEmpty(path))
-                path = this.PathResolver.GetSearchPathForTyped(descriptor);
+                path = this.Path.GetSearchPathForTyped(descriptor);
 
             var task = this.Connection.Post(path, query);
             return task.ContinueWith<IQueryResponse<TResult>>(t => this.GetParsedResponse<T, TResult>(task.Result, descriptor));
@@ -100,7 +100,7 @@ namespace Nest
         {
             var search = new SearchDescriptor<dynamic>();
             var descriptor = searcher(search);
-            var path = this.PathResolver.GetSearchPathForDynamic(descriptor);
+            var path = this.Path.GetSearchPathForDynamic(descriptor);
             var query = this.Serialize(descriptor);
 
             var task = this.Connection.Post(path, query);
@@ -139,7 +139,7 @@ namespace Nest
         public Task<IQueryResponse<TResult>> SearchAsync<T, TResult>(SearchDescriptor<T> descriptor) where T : class where TResult : class
         {
             var query = this.Serialize(descriptor);
-            var path = this.PathResolver.GetSearchPathForTyped(descriptor);
+            var path = this.Path.GetSearchPathForTyped(descriptor);
 
             var task = this.Connection.Post(path, query);
             return task.ContinueWith<IQueryResponse<TResult>>(t => this.GetParsedResponse<T, TResult>(task.Result, descriptor));

@@ -13,7 +13,7 @@ namespace Nest
 			var descriptor = new ValidateQueryPathDescriptor();
 			querySelector(descriptor);
 			var stringQuery = this.Serialize(descriptor);
-			var path = this.PathResolver.GetPathForTyped(descriptor, "_validate/query");
+			var path = this.Path.GetPathForTyped(descriptor, "_validate/query");
 			if (descriptor._QueryStringQuery.IsNullOrEmpty())
 				return this._Validate(path, stringQuery);
 			return this._ValidateQueryString(path);
@@ -27,7 +27,7 @@ namespace Nest
 			var descriptor = new ValidateQueryPathDescriptor<T>();
 			querySelector(descriptor);
 			var stringQuery = this.Serialize(descriptor);
-			var path = this.PathResolver.GetPathForTyped(descriptor, "_validate/query");
+			var path = this.Path.GetPathForTyped(descriptor, "_validate/query");
 			if (descriptor._QueryStringQuery.IsNullOrEmpty())
 				return this._Validate(path, stringQuery);
 			return this._ValidateQueryString(path);

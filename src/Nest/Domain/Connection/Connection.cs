@@ -334,8 +334,14 @@ namespace Nest
 
 		private Uri _CreateUriString(string path)
 		{
-            var s = this._ConnectionSettings;
-			
+       var s = this._ConnectionSettings;
+
+       // When using a SAAS provider node urls can look like this
+       // http://mysearch.com/company/project 
+      //make sure we keep the path part of these urls
+       var prependPath = s.Uri.LocalPath.TrimEnd(new [] {'/'});
+       if (!prependPath.IsNullOrEmpty())
+         path = prependPath + path;
 				
 			if (s.QueryStringParameters != null)
 			{

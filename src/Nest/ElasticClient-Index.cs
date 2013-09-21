@@ -12,7 +12,7 @@ namespace Nest
 		/// </summary>
 		public IIndexResponse Index<T>(T @object) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object);
 			return this._indexToPath(@object, path);
 		}
 		/// <summary>
@@ -20,8 +20,8 @@ namespace Nest
 		/// </summary>
 		public IIndexResponse Index<T>(T @object, IndexParameters indexParameters) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object);
-			path = this.PathResolver.AppendParametersToPath(path, indexParameters);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object);
+			path = this.Path.AppendParametersToPath(path, indexParameters);
 			return this._indexToPath(@object, path);
 		}
 		/// <summary>
@@ -29,7 +29,7 @@ namespace Nest
 		/// </summary>
 		public IIndexResponse Index<T>(T @object, string index) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index);
 			return this._indexToPath<T>(@object, path);
 		}
 		/// <summary>
@@ -37,8 +37,8 @@ namespace Nest
 		/// </summary>
 		public IIndexResponse Index<T>(T @object, string index, IndexParameters indexParameters) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index);
-			path = this.PathResolver.AppendParametersToPath(path, indexParameters);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index);
+			path = this.Path.AppendParametersToPath(path, indexParameters);
 			return this._indexToPath<T>(@object, path);
 		}
 		/// <summary>
@@ -46,7 +46,7 @@ namespace Nest
 		/// </summary>
 		public IIndexResponse Index<T>(T @object, string index, string type) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index, type);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index, type);
 			return this._indexToPath<T>(@object, path);
 		}
 		/// <summary>
@@ -54,8 +54,8 @@ namespace Nest
 		/// </summary>
 		public IIndexResponse Index<T>(T @object, string index = null, string type = null, IndexParameters indexParameters = null) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index, type);
-			path = this.PathResolver.AppendParametersToPath(path, indexParameters);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index, type);
+			path = this.Path.AppendParametersToPath(path, indexParameters);
 			return this._indexToPath<T>(@object, path);
 		}
 
@@ -64,7 +64,7 @@ namespace Nest
 		/// </summary>
 		public IIndexResponse Index<T>(T @object, string index, string type, string id) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index, type, id);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index, type, id);
 			return this._indexToPath<T>(@object, path);
 		}
 		/// <summary>
@@ -72,8 +72,8 @@ namespace Nest
 		/// </summary>
 		public IIndexResponse Index<T>(T @object, string index, string type, string id, IndexParameters indexParameters) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index, type, id);
-			path = this.PathResolver.AppendParametersToPath(path, indexParameters);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index, type, id);
+			path = this.Path.AppendParametersToPath(path, indexParameters);
 			return this._indexToPath<T>(@object, path);
 		}
 		/// <summary>
@@ -81,7 +81,7 @@ namespace Nest
 		/// </summary>
 		public IIndexResponse Index<T>(T @object, string index, string type, int id) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index, type, id.ToString());
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index, type, id.ToString());
 			return this._indexToPath<T>(@object, path);
 		}
 		/// <summary>
@@ -89,8 +89,8 @@ namespace Nest
 		/// </summary>
 		public IIndexResponse Index<T>(T @object, string index, string type, int id, IndexParameters indexParameters) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index, type, id.ToString());
-			path = this.PathResolver.AppendParametersToPath(path, indexParameters);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index, type, id.ToString());
+			path = this.Path.AppendParametersToPath(path, indexParameters);
 			return this._indexToPath<T>(@object, path);
 		}
 
@@ -101,7 +101,7 @@ namespace Nest
 		/// </summary>
 		public Task<IIndexResponse> IndexAsync<T>(T @object) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object);
 			return this._indexAsyncToPath(@object, path);
 		}
 		/// <summary>
@@ -109,8 +109,8 @@ namespace Nest
 		/// </summary>
 		public Task<IIndexResponse> IndexAsync<T>(T @object, IndexParameters indexParameters) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object);
-			path = this.PathResolver.AppendParametersToPath(path, indexParameters);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object);
+			path = this.Path.AppendParametersToPath(path, indexParameters);
 			return this._indexAsyncToPath(@object, path);
 		}
 		/// <summary>
@@ -118,7 +118,7 @@ namespace Nest
 		/// </summary>
 		public Task<IIndexResponse> IndexAsync<T>(T @object, string index) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index);
 			return this._indexAsyncToPath(@object, path);
 		}
 		/// <summary>
@@ -126,8 +126,8 @@ namespace Nest
 		/// </summary>
 		public Task<IIndexResponse> IndexAsync<T>(T @object, string index, IndexParameters indexParameters) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index);
-			path = this.PathResolver.AppendParametersToPath(path, indexParameters);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index);
+			path = this.Path.AppendParametersToPath(path, indexParameters);
 			return this._indexAsyncToPath(@object, path);
 		}
 		/// <summary>
@@ -135,7 +135,7 @@ namespace Nest
 		/// </summary>
 		public Task<IIndexResponse> IndexAsync<T>(T @object, string index, string type) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index, type);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index, type);
 			return this._indexAsyncToPath(@object, path);
 		}
 		/// <summary>
@@ -143,8 +143,8 @@ namespace Nest
 		/// </summary>
 		public Task<IIndexResponse> IndexAsync<T>(T @object, string index, string type, IndexParameters indexParameters) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index, type);
-			path = this.PathResolver.AppendParametersToPath(path, indexParameters);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index, type);
+			path = this.Path.AppendParametersToPath(path, indexParameters);
 			return this._indexAsyncToPath(@object, path);
 		}
 
@@ -153,7 +153,7 @@ namespace Nest
 		/// </summary>
 		public Task<IIndexResponse> IndexAsync<T>(T @object, string index, string type, string id) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index, type, id);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index, type, id);
 			return this._indexAsyncToPath(@object, path);
 		}
 		/// <summary>
@@ -161,8 +161,8 @@ namespace Nest
 		/// </summary>
 		public Task<IIndexResponse> IndexAsync<T>(T @object, string index, string type, string id, IndexParameters indexParameters) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index, type, id);
-			path = this.PathResolver.AppendParametersToPath(path, indexParameters);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index, type, id);
+			path = this.Path.AppendParametersToPath(path, indexParameters);
 			return this._indexAsyncToPath(@object, path);
 		}
 		/// <summary>
@@ -170,7 +170,7 @@ namespace Nest
 		/// </summary>
 		public Task<IIndexResponse> IndexAsync<T>(T @object, string index, string type, int id) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index, type, id.ToString());
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index, type, id.ToString());
 			return this._indexAsyncToPath(@object, path);
 		}
 		/// <summary>
@@ -178,8 +178,8 @@ namespace Nest
 		/// </summary>
 		public Task<IIndexResponse> IndexAsync<T>(T @object, string index, string type, int id, IndexParameters indexParameters) where T : class
 		{
-			var path = this.PathResolver.CreateIdOptionalPathFor<T>(@object, index, type, id.ToString());
-			path = this.PathResolver.AppendParametersToPath(path, indexParameters);
+			var path = this.Path.CreateIdOptionalPathFor<T>(@object, index, type, id.ToString());
+			path = this.Path.AppendParametersToPath(path, indexParameters);
 			return this._indexAsyncToPath(@object, path);
 		}
 
@@ -208,7 +208,7 @@ namespace Nest
 		public IBulkResponse IndexMany<T>(IEnumerable<T> objects, SimpleBulkParameters bulkParameters) where T : class
 		{
 			var json = this.GenerateBulkIndexCommand(@objects);
-			var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+			var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 			return this._indexManyToPath(path, json);
 		}
 		/// <summary>
@@ -218,7 +218,7 @@ namespace Nest
 		public IBulkResponse IndexMany<T>(IEnumerable<BulkParameters<T>> objects, SimpleBulkParameters bulkParameters) where T : class
 		{
 			var json = this.GenerateBulkIndexCommand(@objects);
-			var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+			var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 			return this._indexManyToPath(path, json);
 		}
 
@@ -245,7 +245,7 @@ namespace Nest
 		public IBulkResponse IndexMany<T>(IEnumerable<T> objects, string index, SimpleBulkParameters bulkParameters) where T : class
 		{
 			var json = this.GenerateBulkIndexCommand(@objects, index);
-            var path = this.PathResolver.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
+            var path = this.Path.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
 			return this._indexManyToPath(path, json);
 		}
 		/// <summary>
@@ -255,7 +255,7 @@ namespace Nest
 		public IBulkResponse IndexMany<T>(IEnumerable<BulkParameters<T>> objects, string index, SimpleBulkParameters bulkParameters) where T : class
 		{
 			var json = this.GenerateBulkIndexCommand(@objects, index);
-            var path = this.PathResolver.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
+            var path = this.Path.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
 			return this._indexManyToPath(path, json);
 		}
 
@@ -282,7 +282,7 @@ namespace Nest
 		public IBulkResponse IndexMany<T>(IEnumerable<T> objects, string index, string type, SimpleBulkParameters bulkParameters) where T : class
 		{
 			var json = this.GenerateBulkIndexCommand(@objects, index, type);
-            var path = this.PathResolver.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
+            var path = this.Path.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
 			return this._indexManyToPath(path, json);
 		}
 		/// <summary>
@@ -292,7 +292,7 @@ namespace Nest
 		public IBulkResponse IndexMany<T>(IEnumerable<BulkParameters<T>> objects, string index, string type, SimpleBulkParameters bulkParameters) where T : class
 		{
 			var json = this.GenerateBulkIndexCommand(@objects, index, type);
-            var path = this.PathResolver.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
+            var path = this.Path.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
 			return this._indexManyToPath(path, json);
 		}
 
@@ -322,7 +322,7 @@ namespace Nest
 		public Task<IBulkResponse> IndexManyAsync<T>(IEnumerable<T> objects, SimpleBulkParameters bulkParameters) where T : class
 		{
 			var json = this.GenerateBulkIndexCommand(@objects);
-			var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+			var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 			return this._indexManyAsyncToPath(path, json);
 		}
 		/// <summary>
@@ -332,7 +332,7 @@ namespace Nest
 		public Task<IBulkResponse> IndexManyAsync<T>(IEnumerable<BulkParameters<T>> objects, SimpleBulkParameters bulkParameters) where T : class
 		{
 			var json = this.GenerateBulkIndexCommand(@objects);
-			var path = this.PathResolver.AppendSimpleParametersToPath("_bulk", bulkParameters);
+			var path = this.Path.AppendSimpleParametersToPath("_bulk", bulkParameters);
 			return this._indexManyAsyncToPath(path, json);
 		}
 
@@ -359,7 +359,7 @@ namespace Nest
 		public Task<IBulkResponse> IndexManyAsync<T>(IEnumerable<T> objects, string index, SimpleBulkParameters bulkParameters) where T : class
 		{
 			var json = this.GenerateBulkIndexCommand(@objects, index);
-            var path = this.PathResolver.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
+            var path = this.Path.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
 			return this._indexManyAsyncToPath(path, json);
 		}
 		/// <summary>
@@ -369,7 +369,7 @@ namespace Nest
 		public Task<IBulkResponse> IndexManyAsync<T>(IEnumerable<BulkParameters<T>> objects, string index, SimpleBulkParameters bulkParameters) where T : class
 		{
 			var json = this.GenerateBulkIndexCommand(@objects, index);
-            var path = this.PathResolver.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
+            var path = this.Path.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
 			return this._indexManyAsyncToPath(path, json);
 		}
 
@@ -396,7 +396,7 @@ namespace Nest
 		public Task<IBulkResponse> IndexManyAsync<T>(IEnumerable<T> objects, string index, string type, SimpleBulkParameters bulkParameters) where T : class
 		{
 			var json = this.GenerateBulkIndexCommand(@objects, index, type);
-            var path = this.PathResolver.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
+            var path = this.Path.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
 			return this._indexManyAsyncToPath(path, json);
 		}
 		/// <summary>
@@ -406,14 +406,14 @@ namespace Nest
 		public Task<IBulkResponse> IndexManyAsync<T>(IEnumerable<BulkParameters<T>> objects, string index, string type, SimpleBulkParameters bulkParameters) where T : class
 		{
 			var json = this.GenerateBulkIndexCommand(@objects, index, type);
-			var path = this.PathResolver.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
+			var path = this.Path.AppendSimpleParametersToPath(this.BulkIndexPath(index), bulkParameters);
 			return this._indexManyAsyncToPath(path, json);
 		}
 
 
 		private string BulkIndexPath(string index)
 		{
-			return this.PathResolver.CreateIndexPath(index, "_bulk");
+			return this.Path.CreateIndexPath(index, "_bulk");
 		}
 
 		private IIndexResponse _indexToPath<T>(T @object, string path) where T : class

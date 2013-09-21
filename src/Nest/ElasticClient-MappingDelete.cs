@@ -29,7 +29,7 @@ namespace Nest
         /// </summary>
         public IIndicesResponse DeleteMapping<T>(string index, string type) where T : class
         {
-            string path = this.PathResolver.CreateIndexTypePath(index, type);
+            string path = this.Path.CreateIndexTypePath(index, type);
             
 			ConnectionStatus status = this.Connection.DeleteSync(path);
 	        return this.Deserialize<IndicesResponse>(status, allow404: true);
@@ -57,7 +57,7 @@ namespace Nest
         /// </summary>
         public IIndicesResponse DeleteMapping(Type t, string index, string type)
         {
-            string path = this.PathResolver.CreateIndexTypePath(index, type);
+            string path = this.Path.CreateIndexTypePath(index, type);
             ConnectionStatus status = this.Connection.DeleteSync(path);
 
             var response = new IndicesResponse();

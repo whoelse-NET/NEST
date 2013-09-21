@@ -17,9 +17,9 @@ namespace Nest
 		  var descriptor = new RoutingQueryPathDescriptor<T>();
 		  query(descriptor);
 		  var stringQuery = this.Serialize(descriptor);
-		  var path = this.PathResolver.GetPathForTyped(descriptor, "_query");
+		  var path = this.Path.GetPathForTyped(descriptor, "_query");
 		  if (parameters != null)
-			  path = this.PathResolver.AppendDeleteByQueryParametersToPath(path, parameters);
+			  path = this.Path.AppendDeleteByQueryParametersToPath(path, parameters);
 		  return this._deleteToPath(path, stringQuery);
 	  }
 
@@ -34,9 +34,9 @@ namespace Nest
 		  var descriptor = new RoutingQueryPathDescriptor();
 		  query(descriptor);
 		  var stringQuery = this.Serialize(descriptor);
-		  var path = this.PathResolver.GetDeleteByQueryPathForDynamic(descriptor, "_query");
+		  var path = this.Path.GetDeleteByQueryPathForDynamic(descriptor, "_query");
 		  if (parameters != null)
-			  path = this.PathResolver.AppendDeleteByQueryParametersToPath(path, parameters);
+			  path = this.Path.AppendDeleteByQueryParametersToPath(path, parameters);
 		  return this._deleteToPath(path, stringQuery);
 	  }
 
@@ -51,9 +51,9 @@ namespace Nest
 		  var descriptor = new RoutingQueryPathDescriptor<T>();
 		  query(descriptor);
 		  var stringQuery = this.Serialize(descriptor);
-		  var path = this.PathResolver.GetPathForTyped(descriptor, "_query");
+		  var path = this.Path.GetPathForTyped(descriptor, "_query");
 		  if (parameters != null)
-			  path = this.PathResolver.AppendDeleteByQueryParametersToPath(path, parameters);
+			  path = this.Path.AppendDeleteByQueryParametersToPath(path, parameters);
 		  return this._deleteToPathAsync(path, stringQuery);
 	  }
 
@@ -68,9 +68,9 @@ namespace Nest
 		  var descriptor = new RoutingQueryPathDescriptor();
 		  query(descriptor);
 		  var stringQuery = this.Serialize(descriptor);
-		  var path = this.PathResolver.GetDeleteByQueryPathForDynamic(descriptor, "_query");
+		  var path = this.Path.GetDeleteByQueryPathForDynamic(descriptor, "_query");
 		  if (parameters != null)
-			  path = this.PathResolver.AppendDeleteByQueryParametersToPath(path, parameters);
+			  path = this.Path.AppendDeleteByQueryParametersToPath(path, parameters);
 		  return this._deleteToPathAsync(path, stringQuery);
 	  }
 

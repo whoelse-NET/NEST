@@ -40,6 +40,10 @@ namespace Nest
 			this.typeNameResolver = new TypeNameResolver();
 		}
 
+     
+
+
+
 		/// <summary>
 		/// Manually set the index, default to the default index or the index set for the type on the connectionsettings.
 		/// </summary>

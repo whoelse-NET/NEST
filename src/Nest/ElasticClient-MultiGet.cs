@@ -28,7 +28,7 @@ namespace Nest
 
 			var typeName = this.Infer.TypeName<T>();
 
-			return this.MultiGet<T>(ids, this.PathResolver.CreateIndexTypePath(index, typeName));
+			return this.MultiGet<T>(ids, this.Path.CreateIndexTypePath(index, typeName));
 		}
 		/// <summary>
 		/// Gets multiple documents of T by id in the specified index
@@ -46,7 +46,7 @@ namespace Nest
 		{
 			var typeName = this.Infer.TypeName<T>();
 			
-			return this.MultiGet<T>(ids, this.PathResolver.CreateIndexTypePath(index, typeName));
+			return this.MultiGet<T>(ids, this.Path.CreateIndexTypePath(index, typeName));
 		}
 		/// <summary>
 		/// Gets multiple documents of T by id in the specified index and the specified typename for T
@@ -62,7 +62,7 @@ namespace Nest
 		public IEnumerable<T> MultiGet<T>(string index, string type, IEnumerable<string> ids)
 			where T : class
 		{
-			return this.MultiGet<T>(ids, this.PathResolver.CreateIndexTypePath(index, type));
+			return this.MultiGet<T>(ids, this.Path.CreateIndexTypePath(index, type));
 		}
 		
 		public MultiGetResponse MultiGetFull(Action<MultiGetDescriptor> multiGetSelector)

@@ -18,7 +18,7 @@ namespace Nest
 
 			var query = this.Serialize(descriptor._SearchDescriptor);
 
-			var path = this.PathResolver.GetWarmerPath(descriptor);
+			var path = this.Path.GetWarmerPath(descriptor);
 			ConnectionStatus status = this.Connection.PutSync(path, query);
 			var r = this.Deserialize<IndicesOperationResponse>(status);
 
@@ -33,7 +33,7 @@ namespace Nest
 			selector.ThrowIfNull("selector");
 			var descriptor = selector(new GetWarmerDescriptor(_connectionSettings));
 			descriptor.ThrowIfNull("descriptor");
-			var path = this.PathResolver.GetWarmerPath(descriptor);
+			var path = this.Path.GetWarmerPath(descriptor);
 
 			ConnectionStatus status = this.Connection.GetSync(path);
 			var r = this.Deserialize<WarmerResponse>(status);
@@ -48,7 +48,7 @@ namespace Nest
 			selector.ThrowIfNull("selector");
 			var descriptor = selector(new GetWarmerDescriptor(_connectionSettings));
 			descriptor.ThrowIfNull("descriptor");
-			var path = this.PathResolver.GetWarmerPath(descriptor);
+			var path = this.Path.GetWarmerPath(descriptor);
 
 			ConnectionStatus status = this.Connection.DeleteSync(path);
 			var r = this.Deserialize<IndicesOperationResponse>(status);

@@ -46,7 +46,7 @@ namespace Nest
 			var index = this._connectionSettings.DefaultIndex;
 			index.ThrowIfNullOrEmpty("Cannot infer default index for current connection.");
 
-			string path = this.PathResolver.CreateIndexPath(index, "_count");
+			string path = this.Path.CreateIndexPath(index, "_count");
 			var descriptor = new QueryDescriptor();
 			var bq = querySelector(descriptor);
 			var query = this.Serialize(bq);
@@ -59,7 +59,7 @@ namespace Nest
 		public ICountResponse Count(IEnumerable<string> indices, Func<QueryDescriptor, BaseQuery> querySelector)
 		{
 			indices.ThrowIfEmpty("indices");
-			string path = this.PathResolver.CreateIndexPath(indices, "_count");
+			string path = this.Path.CreateIndexPath(indices, "_count");
 			var descriptor = new QueryDescriptor();
 			var bq = querySelector(descriptor);
 			var query = this.Serialize(bq);
@@ -72,7 +72,7 @@ namespace Nest
 		{
 			indices.ThrowIfEmpty("indices");
 			indices.ThrowIfEmpty("types");
-			string path = this.PathResolver.CreateIndexTypePath(indices, types, "_count");
+			string path = this.Path.CreateIndexTypePath(indices, types, "_count");
 			var descriptor = new QueryDescriptor();
 			var bq = querySelector(descriptor);
 			var query = this.Serialize(bq);
@@ -90,7 +90,7 @@ namespace Nest
 
 			var type = typeof(T);
 			var typeName = this.Infer.TypeName<T>();
-			string path = this.PathResolver.CreateIndexTypePath(index, typeName, "_count");
+			string path = this.Path.CreateIndexTypePath(index, typeName, "_count");
 			var descriptor = new QueryDescriptor<T>();
 			querySelector(descriptor);
 			var query = this.Serialize(descriptor);
@@ -103,7 +103,7 @@ namespace Nest
 		public ICountResponse Count<T>(IEnumerable<string> indices, Func<QueryDescriptor<T>, BaseQuery> querySelector) where T : class
 		{
 			indices.ThrowIfEmpty("indices");
-			string path = this.PathResolver.CreateIndexPath(indices, "_count");
+			string path = this.Path.CreateIndexPath(indices, "_count");
 			var descriptor = new QueryDescriptor<T>();
 			querySelector(descriptor);
 			var query = this.Serialize(descriptor);
@@ -117,7 +117,7 @@ namespace Nest
 		{
 			indices.ThrowIfEmpty("indices");
 			indices.ThrowIfEmpty("types");
-			string path = this.PathResolver.CreateIndexTypePath(indices, types, "_count");
+			string path = this.Path.CreateIndexTypePath(indices, types, "_count");
 			var descriptor = new QueryDescriptor<T>();
 			querySelector(descriptor);
 			var query = this.Serialize(descriptor);

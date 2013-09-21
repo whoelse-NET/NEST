@@ -14,7 +14,7 @@ namespace Nest
 			templateName.ThrowIfNull("templateName");
 			//TODO validate templateName for invalid url chars?
 
-			string path = this.PathResolver.CreateTemplatePath(templateName);
+			string path = this.Path.CreateTemplatePath(templateName);
 			ConnectionStatus status = this.Connection.GetSync(path);
 
 			return this.Deserialize<TemplateResponse>(status);
@@ -42,7 +42,7 @@ namespace Nest
 
 		public IIndicesOperationResponse PutTemplateRaw(string templateName, string template)
 		{
-			string path = this.PathResolver.CreateTemplatePath(templateName);
+			string path = this.Path.CreateTemplatePath(templateName);
 			ConnectionStatus status = this.Connection.PutSync(path, template);
 
 			var r = this.Deserialize<IndicesOperationResponse>(status);
@@ -51,7 +51,7 @@ namespace Nest
 
 		public IIndicesOperationResponse DeleteTemplate(string templateName)
 		{
-			string path = this.PathResolver.CreateTemplatePath(templateName);
+			string path = this.Path.CreateTemplatePath(templateName);
 			ConnectionStatus status = this.Connection.DeleteSync(path);
 
 			var r = this.Deserialize<IndicesOperationResponse>(status);

@@ -47,6 +47,9 @@ namespace Nest
 			else if (data != null)
 				postData = this.Serialize(data);
 
+      if (queryString != null && queryString.HasKeys())
+        path += queryString.ToQueryString();
+      
 			switch (method.ToLowerInvariant())
 			{
 				case "post": return this.Connection.PostSync(path, postData);
@@ -69,6 +72,9 @@ namespace Nest
 				postData = s;
 			else if (data != null)
 				postData = this.Serialize(data);
+
+      if (queryString != null && queryString.HasKeys())
+        path += queryString.ToQueryString();
 
 			switch (method.ToLowerInvariant())
 			{

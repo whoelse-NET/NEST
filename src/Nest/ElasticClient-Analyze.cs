@@ -47,7 +47,7 @@ namespace Nest
 		
 		private AnalyzeResponse _Analyze(AnalyzeParams analyzeParams, string text)
 		{
-			var path = this.PathResolver.CreateIndexPath(analyzeParams.Index, "_analyze") + "?text=";
+			var path = this.Path.CreateIndexPath(analyzeParams.Index, "_analyze") + "?text=";
 			path += Uri.EscapeDataString(text);
 
 			if (!analyzeParams.Field.IsNullOrEmpty())

@@ -12,7 +12,7 @@ namespace Nest
         /// </summary>
         public INodeInfoResponse NodeInfo(NodesInfo nodesInfo)
         {
-            var path = this.PathResolver.CreateNodePath();
+            var path = this.Path.CreateNodePath();
             return _NodeInfo(path, nodesInfo);
         }
 
@@ -21,7 +21,7 @@ namespace Nest
         /// </summary>
         public INodeInfoResponse NodeInfo(IEnumerable<string> nodes, NodesInfo nodesInfo)
         {
-            var path = this.PathResolver.CreateNodePath(nodes);
+            var path = this.Path.CreateNodePath(nodes);
             return _NodeInfo(path, nodesInfo);
         }
 
@@ -62,7 +62,7 @@ namespace Nest
         /// </summary>
         public INodeStatsResponse NodeStats(NodeInfoStats nodeInfoStats)
         {
-            var path = this.PathResolver.CreateNodePath("stats");
+            var path = this.Path.CreateNodePath("stats");
             return this._NodeStats(path, nodeInfoStats);
         }
 
@@ -71,7 +71,7 @@ namespace Nest
         /// </summary>
         public INodeStatsResponse NodeStats(IEnumerable<string> nodes, NodeInfoStats nodeInfoStats)
         {
-            var path = this.PathResolver.CreateNodePath(nodes, "stats");
+            var path = this.Path.CreateNodePath(nodes, "stats");
             return this._NodeStats(path, nodeInfoStats);
         }
 

@@ -68,12 +68,14 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DSL\Paths\DocumentPath.cs" />
     <Compile Include="Domain\Connection\AsyncRequestOperation.cs" />
     <Compile Include="Domain\Connection\NoTasksHttpConnection.cs" />
     <Compile Include="Domain\Responses\RootVersionInfoResponse.cs" />
     <Compile Include="ExposedInternals\ElasticInferrer.cs" />
     <Compile Include="ExposedInternals\ElasticSerializer.cs" />
     <Compile Include="Exception\ConnectionException.cs" />
+    <Compile Include="DSL\Paths\IndexPath.cs" />
     <Compile Include="RawElasticClient-Generated.cs" />
     <Compile Include="Extensions\StringInject.cs" />
     <Compile Include="RawElasticClient.cs" />
@@ -560,6 +562,7 @@
     <Compile Include="Domain\Analysis\TokenFilter\StopTokenFilter.cs" />
     <Compile Include="Domain\Analysis\TokenFilter\WordDelimiterTokenFilter.cs" />
     <Compile Include="Resolvers\Writers\WritePropertiesFromAttributeVisitor.cs" />
+    <Compile Include="DSL\Paths\TypePath.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

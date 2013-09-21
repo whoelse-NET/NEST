@@ -49,7 +49,7 @@ namespace Nest
         /// </summary>
         public RootObjectMapping GetMapping(string index, string type)
         {
-            string path = this.PathResolver.CreateIndexTypePath(index, type, "_mapping");
+            string path = this.Path.CreateIndexTypePath(index, type, "_mapping");
 
             ConnectionStatus status = this.Connection.GetSync(path);
             try

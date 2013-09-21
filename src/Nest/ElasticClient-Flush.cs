@@ -44,7 +44,7 @@ namespace Nest
 		public IIndicesOperationResponse Flush(IEnumerable<string> indices, bool refresh = false)
 		{
 			indices.ThrowIfNull("index");
-			string path = this.PathResolver.CreateIndexPath(indices, "_flush");
+			string path = this.Path.CreateIndexPath(indices, "_flush");
 			path += "?refresh=" + refresh.ToString().ToLower();
 			return this._Flush(path);
 		}

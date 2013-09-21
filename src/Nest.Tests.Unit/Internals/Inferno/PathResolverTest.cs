@@ -7,35 +7,37 @@ namespace Nest.Tests.Unit.Internals.Inferno
 	[TestFixture]
 	public class PathResolverTests
 	{
-		private static ConnectionSettings Settings = new ConnectionSettings(Test.Default.Uri)
+		private static readonly ConnectionSettings Settings = new ConnectionSettings(Test.Default.Uri)
 			.SetDefaultIndex(Test.Default.DefaultIndex);
+    
+    private readonly IElasticClient _client = new ElasticClient(Settings, new InMemoryConnection(Settings));
 
 		[Test]
 		public void SimpleGetPath()
 		{
-			var pr = new PathResolver(Settings);
-			var d = new GetDescriptor<ElasticSearchProject>()
-				.Id(1);
+			var status = this._client.GetFull<ElasticSearchProject>(d=>d
+				.Id(1)
+      );
 			var expected = "/nest_test_data/elasticsearchprojects/1";
-			var path = pr.CreateGetPath(d);
+			var path = status.ConnectionStatus.RequestUrl;
 
-			Assert.AreEqual(expected, path);
+			StringAssert.EndsWith(expected, path);
 		}
 		[Test]
 		public void ComplexGetPath()
 		{
-			var pr = new PathResolver(Settings);
-			var d = new GetDescriptor<ElasticSearchProject>()
+			var status = this._client.GetFull<ElasticSearchProject>(d=>d
 				.Index("newindex")
 				.Type("myothertype")
 				.Refresh()
 				.Routing("routing")
 				.ExecuteOnPrimary()
-				.Id(1);
+				.Id(1)
+      );
 			var expected = "/newindex/myothertype/1?refresh=true&preference=_primary&routing=routing";
-			var path = pr.CreateGetPath(d);
+      var path = status.ConnectionStatus.RequestUrl;
 
-			Assert.AreEqual(expected, path, path);
+			StringAssert.EndsWith(expected, path, path);
 		}
 	}
 }

@@ -41,7 +41,7 @@ namespace Nest
 		/// </summary>
 		public IIndicesResponse MapFromAttributes<T>(string index, string type, int maxRecursion = 0) where T : class
 		{
-			string path = this.PathResolver.CreateIndexTypePath(index, type, "_mapping");
+			string path = this.Path.CreateIndexTypePath(index, type, "_mapping");
 			var typeMapping = this.CreateMapFor<T>(type, maxRecursion);
 			typeMapping.TypeNameMarker = type;
 			return this.Map(typeMapping, index, type, ignoreConflicts: false);
@@ -80,7 +80,7 @@ namespace Nest
 		/// </summary>
 		public IIndicesResponse MapFromAttributes(Type t, string index, string type, int maxRecursion = 0)
 		{
-			string path = this.PathResolver.CreateIndexTypePath(index, type, "_mapping");
+			string path = this.Path.CreateIndexTypePath(index, type, "_mapping");
 			var typeMapping = this.CreateMapFor(t, type, maxRecursion);
 			typeMapping.TypeNameMarker = type;
 			return this.Map(typeMapping, index, type, ignoreConflicts: false);
@@ -123,7 +123,7 @@ namespace Nest
 			mapping.Add(this.ResolveTypeName(typeMapping.TypeNameMarker), typeMapping);
 
 			string map = this.Serializer.Serialize(mapping, Formatting.None);
-			string path = this.PathResolver.CreateIndexTypePath(index, typeName, "_mapping");
+			string path = this.Path.CreateIndexTypePath(index, typeName, "_mapping");
 			if (ignoreConflicts)
 				path += "?ignore_conflicts=true";
 			ConnectionStatus status = this.Connection.PutSync(path, map);

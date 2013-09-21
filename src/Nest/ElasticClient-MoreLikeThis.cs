@@ -15,7 +15,7 @@ namespace Nest
 			var mltDescriptor = new MoreLikeThisDescriptor<T>();
 			var descriptor = mltSelector(mltDescriptor);
 
-			var path = this.PathResolver.GetMoreLikeThisPathFor(descriptor);
+			var path = this.Path.GetMoreLikeThisPathFor(descriptor);
 			ConnectionStatus status = null;
 			if (descriptor._Search == null)
 			{

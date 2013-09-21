@@ -229,7 +229,7 @@ namespace Nest.Tests.Integration.Core
 			this._client.DeleteByQuery<ElasticSearchProject>(
 				q => q.Term(f => f.Name, "elasticsearch.pm")
 			);
-
+      this._client.Refresh();
 			result = this._client.Search<ElasticSearchProject>(s => s
 				.Query(q => q.Term(f => f.Name, "elasticsearch.pm"))
 			);

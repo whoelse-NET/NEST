@@ -16,7 +16,7 @@ namespace Nest
 		public IIndicesOperationResponse CreateIndex(string index, IndexSettings settings)
 		{
 			string data = this.Serialize(settings);
-			string path = this.PathResolver.CreateIndexPath(index);
+			string path = this.Path.CreateIndexPath(index);
 			var status = this.Connection.PostSync(path, data);
 			return this.Deserialize<IndicesOperationResponse>(status);
 		}

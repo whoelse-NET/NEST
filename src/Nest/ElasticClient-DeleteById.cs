@@ -23,7 +23,7 @@ namespace Nest
 		  index.ThrowIfNullOrEmpty("Cannot infer default index for current connection.");
 
 		  var typeName = this.Infer.TypeName<T>();
-		  var path = this.PathResolver.CreateIndexTypeIdPath(index, typeName, id);
+		  var path = this.Path.CreateIndexTypeIdPath(index, typeName, id);
 		  return this._deleteToPath(path);
 	  }
 
@@ -32,7 +32,7 @@ namespace Nest
 	  /// </summary>
 	  public IDeleteResponse DeleteById(string index, string type, string id)
 	  {
-		  var path = this.PathResolver.CreateIndexTypeIdPath(index, type, id);
+		  var path = this.Path.CreateIndexTypeIdPath(index, type, id);
 		  return this._deleteToPath(path);
 	  }
 
@@ -41,7 +41,7 @@ namespace Nest
 	  /// </summary>
 	  public IDeleteResponse DeleteById(string index, string type, int id)
 	  {
-		  var path = this.PathResolver.CreateIndexTypeIdPath(index, type, id.ToString());
+		  var path = this.Path.CreateIndexTypeIdPath(index, type, id.ToString());
 		  return this._deleteToPath(path);
 	  }
 
@@ -64,8 +64,8 @@ namespace Nest
 		  index.ThrowIfNullOrEmpty("Cannot infer default index for current connection.");
 
 		  var typeName = this.Infer.TypeName<T>();
-		  var path = this.PathResolver.CreateIndexTypeIdPath(index, typeName, id);
-		  path = this.PathResolver.AppendParametersToPath(path, deleteParameters);
+		  var path = this.Path.CreateIndexTypeIdPath(index, typeName, id);
+		  path = this.Path.AppendParametersToPath(path, deleteParameters);
 		  return this._deleteToPath(path);
 	  }
 
@@ -75,8 +75,8 @@ namespace Nest
 	  /// <param name="deleteParameters">Allows you to pass in additional delete parameters such as version and routing</param>
 	  public IDeleteResponse DeleteById(string index, string type, string id, DeleteParameters deleteParameters)
 	  {
-		  var path = this.PathResolver.CreateIndexTypeIdPath(index, type, id);
-		  path = this.PathResolver.AppendParametersToPath(path, deleteParameters);
+		  var path = this.Path.CreateIndexTypeIdPath(index, type, id);
+		  path = this.Path.AppendParametersToPath(path, deleteParameters);
 		  return this._deleteToPath(path);
 	  }
 
@@ -86,8 +86,8 @@ namespace Nest
 	  /// <param name="deleteParameters">Allows you to pass in additional delete parameters such as version and routing</param>
 	  public IDeleteResponse DeleteById(string index, string type, int id, DeleteParameters deleteParameters)
 	  {
-		  var path = this.PathResolver.CreateIndexTypeIdPath(index, type, id.ToString());
-		  path = this.PathResolver.AppendParametersToPath(path, deleteParameters);
+		  var path = this.Path.CreateIndexTypeIdPath(index, type, id.ToString());
+		  path = this.Path.AppendParametersToPath(path, deleteParameters);
 		  return this._deleteToPath(path);
 	  }
 
@@ -108,7 +108,7 @@ namespace Nest
 		  index.ThrowIfNullOrEmpty("Cannot infer default index for current connection.");
 
 		  var typeName = this.Infer.TypeName<T>();
-		  var path = this.PathResolver.CreateIndexTypeIdPath(index, typeName, id);
+		  var path = this.Path.CreateIndexTypeIdPath(index, typeName, id);
 		  return this._deleteToPathAsync(path);
 	  }
 
@@ -117,7 +117,7 @@ namespace Nest
 	  /// </summary>
 	  public Task<IDeleteResponse> DeleteByIdAsync(string index, string type, string id)
 	  {
-		  var path = this.PathResolver.CreateIndexTypeIdPath(index, type, id);
+		  var path = this.Path.CreateIndexTypeIdPath(index, type, id);
 		  return this._deleteToPathAsync(path);
 	  }
 
@@ -126,7 +126,7 @@ namespace Nest
 	  /// </summary>
 	  public Task<IDeleteResponse> DeleteByIdAsync(string index, string type, int id)
 	  {
-		  var path = this.PathResolver.CreateIndexTypeIdPath(index, type, id.ToString());
+		  var path = this.Path.CreateIndexTypeIdPath(index, type, id.ToString());
 		  return this._deleteToPathAsync(path);
 	  }
 
@@ -149,8 +149,8 @@ namespace Nest
 		  index.ThrowIfNullOrEmpty("Cannot infer default index for current connection.");
 
 		  var typeName = this.Infer.TypeName<T>();
-		  var path = this.PathResolver.CreateIndexTypeIdPath(index, typeName, id);
-		  path = this.PathResolver.AppendParametersToPath(path, deleteParameters);
+		  var path = this.Path.CreateIndexTypeIdPath(index, typeName, id);
+		  path = this.Path.AppendParametersToPath(path, deleteParameters);
 		  return this._deleteToPathAsync(path);
 	  }
 
@@ -160,8 +160,8 @@ namespace Nest
 	  /// <param name="deleteParameters">Allows you to pass in additional delete parameters such as version and routing</param>
 	  public Task<IDeleteResponse> DeleteByIdAsync(string index, string type, string id, DeleteParameters deleteParameters)
 	  {
-		  var path = this.PathResolver.CreateIndexTypeIdPath(index, type, id);
-		  path = this.PathResolver.AppendParametersToPath(path, deleteParameters);
+		  var path = this.Path.CreateIndexTypeIdPath(index, type, id);
+		  path = this.Path.AppendParametersToPath(path, deleteParameters);
 		  return this._deleteToPathAsync(path);
 	  }
 
@@ -171,8 +171,8 @@ namespace Nest
 	  /// <param name="deleteParameters">Allows you to pass in additional delete parameters such as version and routing</param>
 	  public Task<IDeleteResponse> DeleteByIdAsync(string index, string type, int id, DeleteParameters deleteParameters)
 	  {
-		  var path = this.PathResolver.CreateIndexTypeIdPath(index, type, id.ToString());
-		  path = this.PathResolver.AppendParametersToPath(path, deleteParameters);
+		  var path = this.Path.CreateIndexTypeIdPath(index, type, id.ToString());
+		  path = this.Path.AppendParametersToPath(path, deleteParameters);
 		  return this._deleteToPathAsync(path);
 	  }
   }
