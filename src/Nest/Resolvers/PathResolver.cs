@@ -87,7 +87,39 @@ namespace Nest.Resolvers
         Type = bulkDescriptor._FixedType
       };
 		}
-		
+		public IndexPath For(ClearCacheDescriptor clearCachDescriptor)
+		{
+      var index = string.Empty;
+      var indices = clearCachDescriptor.Indices;
+      if (indices.HasAny())
+        index = string.Join(",", indices);
+      else if (clearCachDescriptor.Type != null)
+        index = this.Infer.IndexName(clearCachDescriptor.Type);
+
+      var queryString = new NameValueCollection();
+      var options = clearCachDescriptor.ClearCacheOptions;
+
+      if (options != ClearCacheOptions.All)
+      {
+        if ((options & ClearCacheOptions.Id) == ClearCacheOptions.Id)
+        {
+          queryString.Add("id","true");
+        }
+        if ((options & ClearCacheOptions.Filter) == ClearCacheOptions.Filter)
+        {
+          queryString.Add("filter","true");
+        }
+        if ((options & ClearCacheOptions.FieldData) == ClearCacheOptions.FieldData)
+        {
+          queryString.Add("field_data","true");
+        }
+        if ((options & ClearCacheOptions.Bloom) == ClearCacheOptions.Bloom)
+        {
+          queryString.Add("bloom","true");
+        }
+      }
+      return new IndexPath { Index = index, QueryString = queryString };
+		}
 		
 		public string CreatePathFor<T>(T @object, string index = null, string type = null, string id = null) where T : class
 		{

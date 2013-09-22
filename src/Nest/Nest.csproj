@@ -68,6 +68,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DSL\ClearCacheDescriptor.cs" />
     <Compile Include="DSL\Paths\DocumentPath.cs" />
     <Compile Include="Domain\Connection\AsyncRequestOperation.cs" />
     <Compile Include="Domain\Connection\NoTasksHttpConnection.cs" />
