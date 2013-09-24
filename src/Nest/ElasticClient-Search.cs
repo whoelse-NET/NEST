@@ -87,42 +87,37 @@ namespace Nest
             return task.ContinueWith<IQueryResponse<TResult>>(t => this.GetParsedResponse<T, TResult>(task.Result, descriptor));
         }
 
-        private IQueryResponse<T> GetParsedResponse<T>(ConnectionStatus status, SearchDescriptor<T> descriptor) where T : class
-        {
-            return GetParsedResponse<T, T>(status, descriptor);
-        }
-
         private IQueryResponse<TResult> GetParsedResponse<T, TResult>(ConnectionStatus status, SearchDescriptor<T> descriptor) where T : class where TResult : class
         {
 	        var types = (descriptor._Types ?? Enumerable.Empty<TypeNameMarker>())
 		        .Where(t => t.Type != null);
-			var partialFields = descriptor._PartialFields.EmptyIfNull().Select(x => x.Key);
-            if (descriptor._ConcreteTypeSelector == null && (
-				types.Any(t=>t.Type != typeof(TResult))) || partialFields.Any()
-				)
-            {
-				var typeDictionary = types
-					.ToDictionary(t => t.Resolve(this._connectionSettings), t => t.Type);
+			    
+          var partialFields = descriptor._PartialFields.EmptyIfNull().Select(x => x.Key);
+          if (descriptor._ConcreteTypeSelector == null && (
+				    types.Any(t=>t.Type != typeof(TResult))) || partialFields.Any()
+				    )
+          {
+				    var typeDictionary = types
+					    .ToDictionary(t => t.Resolve(this._connectionSettings), t => t.Type);
 
-				descriptor._ConcreteTypeSelector = (o, h) =>
-				{
-					Type t;
-					if (!typeDictionary.TryGetValue(h.Type, out t))
-						return typeof(TResult);
-					return t;
-				};
-            }
+				    descriptor._ConcreteTypeSelector = (o, h) =>
+				    {
+					    Type t;
+					    if (!typeDictionary.TryGetValue(h.Type, out t))
+						    return typeof(TResult);
+					    return t;
+				    };
+          }
 
             
 	        if (descriptor._ConcreteTypeSelector == null)
 		        return this.Deserialize<QueryResponse<TResult>>(status);
-            return this.Deserialize<QueryResponse<TResult>>(
+          return this.Deserialize<QueryResponse<TResult>>(
                 status,
-
-				extraConverters: new[]
-				{
-					new ConcreteTypeConverter(descriptor._ClrType, descriptor._ConcreteTypeSelector, partialFields)
-				}
+                extraConverters: new[]
+				        {
+					        new ConcreteTypeConverter(descriptor._ClrType, descriptor._ConcreteTypeSelector, partialFields)
+				        }
             );
         }
     }

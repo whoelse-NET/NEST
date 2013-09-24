@@ -329,7 +329,9 @@ namespace Nest.Resolvers
 			else
 				indices = this.Infer.IndexName<T>();
 
-			var types = this.Infer.TypeName<T>();
+      string types = null;
+      if (typeof(T) != typeof(object))
+			    types = this.Infer.TypeName<T>();
 			if (descriptor._Types.HasAny())
 				types = this.JoinTypes(descriptor._Types);
 			else if (descriptor._Types != null || descriptor._AllTypes) //if set to empty array assume all

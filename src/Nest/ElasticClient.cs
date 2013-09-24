@@ -12,14 +12,11 @@ namespace Nest
 	{
 		private readonly IConnectionSettings _connectionSettings;
 
-	
-
 		public IConnection Connection { get; protected set; }
 		public ElasticSerializer Serializer { get; protected set; }
 		public IRawElasticClient Raw { get; private set; }
     public ElasticInferrer Infer { get; private set; }
     public PathResolver Path { get; private set; }
-        
 
 		public ElasticClient(IConnectionSettings settings)
 			: this(settings, new Connection(settings))

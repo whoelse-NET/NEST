@@ -23,6 +23,7 @@ namespace Nest
 		internal IEnumerable<TypeNameMarker> _Types { get; set; }
 		internal bool _AllIndices { get; set; }
 		internal bool _AllTypes { get; set; }
+
 		public IQueryPathDescriptor Indices(IEnumerable<string> indices)
 		{
 			indices.ThrowIfEmpty("indices");
