@@ -238,7 +238,7 @@ namespace Nest.Tests.Integration.Core
 			Assert.True(result.Total == 0);
 
 			//make sure we did not delete all.
-			var countResult = this._client.CountAll(q => q.MatchAll());
+			var countResult = this._client.CountAll<dynamic>(q => q.MatchAll());
 			Assert.True(countResult.IsValid);
 			Assert.Greater(countResult.Count, 0);
 

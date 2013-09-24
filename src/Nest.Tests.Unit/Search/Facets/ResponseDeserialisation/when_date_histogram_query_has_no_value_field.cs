@@ -50,7 +50,7 @@ namespace Nest.Tests.Unit.Search.Facets.ResponseDeserialisation
 
       var client = new ElasticClient(connectionSettings, connectionMockery.Object);
 
-      var response = client.Search(descriptor => descriptor);
+      var response = client.Search<dynamic>(descriptor => descriptor);
 
       Assert.That(response.FacetItems<DateEntry>("widget_1:histogram"), DateEntriesConstraint.Sequence(widget1Histogram));
       Assert.That(response.FacetItems<DateEntry>("widget_2:histogram"), DateEntriesConstraint.Sequence(widget2Histogram));

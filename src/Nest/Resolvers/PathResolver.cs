@@ -318,23 +318,6 @@ namespace Nest.Resolvers
 				parameters.Add("version_type", indexParameters.VersionType.ToString().ToLower());
 		}
 
-		
-		public string GetSearchPathForDynamic(SearchDescriptor<dynamic> descriptor)
-		{
-			string indices;
-			if (descriptor._Indices.HasAny())
-				indices = string.Join(",", descriptor._Indices);
-			else if (descriptor._Indices != null || descriptor._AllIndices) //if set to empty array asume all
-				indices = "_all";
-			else
-				indices = this._connectionSettings.DefaultIndex;
-
-			string types = (descriptor._Types.HasAny()) ? this.JoinTypes(descriptor._Types) : null;
-
-			var dict = this.GetSearchParameters(descriptor);
-
-			return this.SearchPathJoin(indices, types, dict);
-		}
 
 		public string GetSearchPathForTyped<T>(SearchDescriptor<T> descriptor) where T : class
 		{

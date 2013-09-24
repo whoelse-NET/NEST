@@ -14,7 +14,7 @@ namespace Nest.Tests.Integration.Integration.Query
 			                            .AllIndices()
 			                            .Query(q=>q.Term(f=>f.Name, ""))
 			                            );
-			var results = this._client.Search(s=>s
+			var results = this._client.Search<dynamic>(s=>s
 				.Index(ElasticsearchConfiguration.DefaultIndex)
 				.Type("elasticsearchprojects")
 				.From(0)

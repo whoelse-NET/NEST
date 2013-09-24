@@ -13,11 +13,6 @@ using System.Collections;
 
 namespace Nest
 {
-	public class FilterDescriptor : FilterDescriptor<dynamic>
-	{
-
-	}
-
 	public class FilterDescriptor<T> : BaseFilter, IFilterDescriptor<T> where T : class
 	{
 		private readonly TypeNameResolver typeNameResolver;

@@ -9,11 +9,6 @@ namespace Nest
 		/// Please consult the docs http://www.elasticsearch.org/guide/reference/api/search/scroll.html
 		/// on the do's and don'ts!
 		/// </summary>
-		public IQueryResponse<dynamic> Scroll(string scrollTime, string scrollId)
-		{
-			return Scroll<dynamic>(scrollTime, scrollId);
-		}
-
 		public IQueryResponse<T> Scroll<T>(string scrollTime, string scrollId) where T : class
 		{
 			scrollId.ThrowIfNullOrEmpty("scrollId");

@@ -96,7 +96,7 @@ namespace Nest.Tests.Integration.Template
 				.AddWarmer<ElasticSearchProject>(w => w
 					.WarmerName("matchall")
 					.Type("elasticsearchprojects")
-					.Search(s=>s
+					.Search<dynamic>(s=>s
 						.MatchAll()
 					)
 				)

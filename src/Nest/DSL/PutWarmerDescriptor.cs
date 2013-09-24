@@ -134,12 +134,6 @@ namespace Nest
 			return this.Type(typeof(T));
 		}
 
-		public PutWarmerDescriptor Search(Func<SearchDescriptor<dynamic>, SearchDescriptor<dynamic>> selector)
-		{
-			this._SearchDescriptor = selector(new SearchDescriptor<dynamic>());
-			return this;
-		}
-
 		public PutWarmerDescriptor Search<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> selector)
 			where T : class
 		{

@@ -13,21 +13,6 @@ namespace Nest
     public partial class ElasticClient
     {
         /// <summary>
-        /// Synchronously search using dynamic as its return type.
-        /// </summary>
-        public IQueryResponse<dynamic> Search(Func<SearchDescriptor<dynamic>, SearchDescriptor<dynamic>> searcher)
-        {
-            var search = new SearchDescriptor<dynamic>();
-            var descriptor = searcher(search);
-            var path = this.Path.GetSearchPathForDynamic(descriptor);
-            var query = this.Serialize(descriptor);
-
-            ConnectionStatus status = this.Connection.PostSync(path, query);
-            var r = this.GetParsedResponse<dynamic>(status, descriptor); ;
-            return r;
-        }
-
-        /// <summary>
         /// Synchronously search using T as the return type
         /// </summary>
         public IQueryResponse<T> Search<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class {
@@ -62,50 +47,7 @@ namespace Nest
             return this.GetParsedResponse<T, TResult>(status, descriptor);
         }
 
-        /// <summary>
-        /// Synchronously search using TResult as the return type, string based.
-        /// </summary>
-        /// <param name="path">EXPERT OPTION: Pass the path and querystring used to perform the search on, when null it will be infered from the type</param>
-        public IQueryResponse<TResult> SearchRaw<T, TResult>(string query, string path = null) where T : class where TResult : class
-        {
-            var descriptor = new SearchDescriptor<T>();
 
-            if (string.IsNullOrEmpty(path))
-                path = this.Path.GetSearchPathForTyped(descriptor);
-
-            ConnectionStatus status = this.Connection.PostSync(path, query);
-            var r = this.GetParsedResponse<T, TResult>(status, descriptor);
-            return r;
-        }
-
-        /// <summary>
-        /// Asynchronously search using TResult as the return type, string based.
-        /// </summary>
-        /// <param name="path">EXPERT OPTION: Pass the path and querystring used to perform the search on, when null it will be infered from the type</param>
-        public Task<IQueryResponse<TResult>> SearchRawAsync<T, TResult>(string query, string path = null) where T : class where TResult : class
-        {
-            var descriptor = new SearchDescriptor<T>();
-
-            if (string.IsNullOrEmpty(path))
-                path = this.Path.GetSearchPathForTyped(descriptor);
-
-            var task = this.Connection.Post(path, query);
-            return task.ContinueWith<IQueryResponse<TResult>>(t => this.GetParsedResponse<T, TResult>(task.Result, descriptor));
-        }
-
-        /// <summary>
-        /// Asynchronously search using dynamic as its return type.
-        /// </summary>
-        public Task<IQueryResponse<dynamic>> SearchAsync(Func<SearchDescriptor<dynamic>, SearchDescriptor<dynamic>> searcher)
-        {
-            var search = new SearchDescriptor<dynamic>();
-            var descriptor = searcher(search);
-            var path = this.Path.GetSearchPathForDynamic(descriptor);
-            var query = this.Serialize(descriptor);
-
-            var task = this.Connection.Post(path, query);
-            return task.ContinueWith<IQueryResponse<dynamic>>(t => this.GetParsedResponse<dynamic>(task.Result, descriptor));
-        }
 
         /// <summary>
         /// Asynchronously search using T as the return type

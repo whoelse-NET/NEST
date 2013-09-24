@@ -86,11 +86,6 @@ namespace Nest
 			return this.Map(typeMapping, index, type, ignoreConflicts: false);
 		}
 
-		public IIndicesResponse MapFluent(Func<RootObjectMappingDescriptor<dynamic>, RootObjectMappingDescriptor<dynamic>> typeMappingDescriptor)
-		{
-			return this.MapFluent<dynamic>(typeMappingDescriptor);
-		}
-
 		public IIndicesResponse MapFluent<T>(Func<RootObjectMappingDescriptor<T>, RootObjectMappingDescriptor<T>> typeMappingDescriptor) where T : class
 		{
 			typeMappingDescriptor.ThrowIfNull("typeMappingDescriptor");

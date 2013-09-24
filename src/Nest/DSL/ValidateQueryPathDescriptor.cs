@@ -10,7 +10,6 @@ using Nest.Resolvers;
 
 namespace Nest
 {
-	public class ValidateQueryPathDescriptor : ValidateQueryPathDescriptor<dynamic> { }
 	public class ValidateQueryPathDescriptor<T> : QueryPathDescriptor<T>, IQueryPathDescriptor where T : class
 	{
 		internal bool _Explain { get; set; }

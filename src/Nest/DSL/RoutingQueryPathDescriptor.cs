@@ -10,7 +10,6 @@ using Nest.Resolvers;
 
 namespace Nest
 {
-	public class RoutingQueryPathDescriptor : RoutingQueryPathDescriptor<dynamic> { }
 	public class RoutingQueryPathDescriptor<T> : QueryPathDescriptor<T> , IQueryPathDescriptor where T : class
 	{
 		internal string _Routing { get; set; }

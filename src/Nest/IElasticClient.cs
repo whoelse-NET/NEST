@@ -42,8 +42,6 @@ namespace Nest
 		ICountResponse Count<T>(IEnumerable<string> indices, Func<QueryDescriptor<T>, BaseQuery> querySelector) where T : class;
 		ICountResponse Count<T>(IEnumerable<string> indices, IEnumerable<string> types, Func<QueryDescriptor<T>, BaseQuery> querySelector) where T : class;
 
-		ICountResponse CountAll(Func<QueryDescriptor, BaseQuery> querySelector);
-
 		ICountResponse CountAll<T>(Func<QueryDescriptor<T>, BaseQuery> querySelector) where T : class;
 
 		IIndicesOperationResponse CreateIndex(string index, IndexSettings settings);
@@ -107,10 +105,8 @@ namespace Nest
 		Task<IDeleteResponse> DeleteByIdAsync<T>(string id) where T : class;
 		Task<IDeleteResponse> DeleteByIdAsync<T>(string id, DeleteParameters deleteParameters) where T : class;
 
-		IDeleteResponse DeleteByQuery(Action<RoutingQueryPathDescriptor> query, DeleteByQueryParameters parameters = null);
 		IDeleteResponse DeleteByQuery<T>(Action<RoutingQueryPathDescriptor<T>> query, DeleteByQueryParameters parameters = null) where T : class;
 
-		Task<IDeleteResponse> DeleteByQueryAsync(Action<RoutingQueryPathDescriptor> query, DeleteByQueryParameters parameters = null);
 		Task<IDeleteResponse> DeleteByQueryAsync<T>(Action<RoutingQueryPathDescriptor<T>> query, DeleteByQueryParameters parameters = null) where T : class;
 
 		IIndicesResponse DeleteIndex(string index);
@@ -232,7 +228,6 @@ namespace Nest
 		IIndicesResponse MapFromAttributes(Type t, string index, int maxRecursion = 0);
 		IIndicesResponse MapFromAttributes(Type t, string index, string type, int maxRecursion = 0);
 
-		IIndicesResponse MapFluent(Func<RootObjectMappingDescriptor<dynamic>, RootObjectMappingDescriptor<dynamic>> typeMappingDescriptor);
 		IIndicesResponse MapFluent<T>(Func<RootObjectMappingDescriptor<T>, RootObjectMappingDescriptor<T>> typeMappingDescriptor)
 			where T : class;
 
@@ -286,14 +281,11 @@ namespace Nest
 		IIndicesOperationResponse RemoveAliases(IEnumerable<AliasParams> aliases);
 		IIndicesOperationResponse Rename(string index, string oldAlias, string newAlias);
 
-		IQueryResponse<dynamic> Scroll(string scrollTime, string scrollId);
 		IQueryResponse<T> Scroll<T>(string scrollTime, string scrollId) where T : class;
 
-		IQueryResponse<dynamic> Search(Func<SearchDescriptor<dynamic>, SearchDescriptor<dynamic>> searcher);
 		IQueryResponse<T> Search<T>(SearchDescriptor<T> descriptor) where T : class;
 		IQueryResponse<T> Search<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class;
 
-		Task<IQueryResponse<dynamic>> SearchAsync(Func<SearchDescriptor<dynamic>, SearchDescriptor<dynamic>> searcher);
 		Task<IQueryResponse<T>> SearchAsync<T>(SearchDescriptor<T> descriptor) where T : class;
 		Task<IQueryResponse<T>> SearchAsync<T>(Func<SearchDescriptor<T>, SearchDescriptor<T>> searcher) where T : class;
 
@@ -320,8 +312,6 @@ namespace Nest
 			where K : class;
 		ISettingsOperationResponse UpdateSettings(IndexSettings settings);
 		ISettingsOperationResponse UpdateSettings(string index, IndexSettings settings);
-
-		IValidateResponse Validate(Action<ValidateQueryPathDescriptor> querySelector);
 
 		IValidateResponse Validate<T>(Action<ValidateQueryPathDescriptor<T>> querySelector) where T : class;
 

@@ -10,10 +10,6 @@ using Nest.Resolvers;
 
 namespace Nest
 {
-	public class QueryDescriptor : QueryDescriptor<dynamic>
-	{
-
-	}
 	public class QueryDescriptor<T> : BaseQuery, IQueryDescriptor<T> where T : class
 	{
 		private readonly TypeNameResolver typeNameResolver;
