@@ -5,26 +5,7 @@ namespace Nest
 {
 	public partial class ElasticClient
 	{
-		/// <summary>
-		/// Performs a count query over all indices
-		/// </summary>
-		public ICountResponse CountAllRaw(string query)
-		{
-			return this._Count("_count", query);
-		}
-		
-		/// <summary>
-		/// Performs a count query over all indices
-		/// </summary>
-		public ICountResponse CountAll(Func<QueryDescriptor, BaseQuery> querySelector)
-		{
-			querySelector.ThrowIfNull("querySelector");
-			var descriptor = new QueryDescriptor();
-			var bq = querySelector(descriptor);
-			var query = this.Serialize(bq);
-			return this._Count("_count", query);
-		}
-		
+	
 		/// <summary>
 		/// Performs a count query over all indices
 		/// </summary>
@@ -35,48 +16,6 @@ namespace Nest
 			querySelector(descriptor);
 			var query = this.Serialize(descriptor);
 			return this._Count("_count", query);
-		}
-
-        
-		/// <summary>
-		/// Performs a count query over the default index set in the client settings
-		/// </summary>
-		public ICountResponse Count(Func<QueryDescriptor, BaseQuery> querySelector)
-		{
-			var index = this._connectionSettings.DefaultIndex;
-			index.ThrowIfNullOrEmpty("Cannot infer default index for current connection.");
-
-			string path = this.Path.CreateIndexPath(index, "_count");
-			var descriptor = new QueryDescriptor();
-			var bq = querySelector(descriptor);
-			var query = this.Serialize(bq);
-			return _Count(path, query);
-		}
-		
-		/// <summary>
-		/// Performs a count query over the passed indices
-		/// </summary>
-		public ICountResponse Count(IEnumerable<string> indices, Func<QueryDescriptor, BaseQuery> querySelector)
-		{
-			indices.ThrowIfEmpty("indices");
-			string path = this.Path.CreateIndexPath(indices, "_count");
-			var descriptor = new QueryDescriptor();
-			var bq = querySelector(descriptor);
-			var query = this.Serialize(bq);
-			return _Count(path, query);
-		}
-		/// <summary>
-		/// Performs a count query over the multiple types in multiple indices.
-		/// </summary>
-		public ICountResponse Count(IEnumerable<string> indices, IEnumerable<string> types, Func<QueryDescriptor, BaseQuery> querySelector)
-		{
-			indices.ThrowIfEmpty("indices");
-			indices.ThrowIfEmpty("types");
-			string path = this.Path.CreateIndexTypePath(indices, types, "_count");
-			var descriptor = new QueryDescriptor();
-			var bq = querySelector(descriptor);
-			var query = this.Serialize(bq);
-			return _Count(path, query);
 		}
 
         

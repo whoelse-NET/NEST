@@ -37,9 +37,6 @@ namespace Nest
 		IIndicesOperationResponse CloseIndex(string index);
 		IIndicesOperationResponse CloseIndex<T>() where T : class;
 
-		ICountResponse Count(Func<QueryDescriptor, BaseQuery> querySelector);
-		ICountResponse Count(IEnumerable<string> indices, Func<QueryDescriptor, BaseQuery> querySelector);
-		ICountResponse Count(IEnumerable<string> indices, IEnumerable<string> types, Func<QueryDescriptor, BaseQuery> querySelector);
 
 		ICountResponse Count<T>(Func<QueryDescriptor<T>, BaseQuery> querySelector) where T : class;
 		ICountResponse Count<T>(IEnumerable<string> indices, Func<QueryDescriptor<T>, BaseQuery> querySelector) where T : class;
