@@ -14,7 +14,6 @@ namespace Nest
 		{
 			selector.ThrowIfNull("selector");
 			var descriptor = selector(new PutWarmerDescriptor(_connectionSettings));
-			descriptor.ThrowIfNull("descriptor");
 
 			var query = this.Serialize(descriptor._SearchDescriptor);
 
@@ -32,7 +31,6 @@ namespace Nest
 		{
 			selector.ThrowIfNull("selector");
 			var descriptor = selector(new GetWarmerDescriptor(_connectionSettings));
-			descriptor.ThrowIfNull("descriptor");
 			var path = this.Path.GetWarmerPath(descriptor);
 
 			ConnectionStatus status = this.Connection.GetSync(path);
@@ -47,7 +45,6 @@ namespace Nest
 		{
 			selector.ThrowIfNull("selector");
 			var descriptor = selector(new GetWarmerDescriptor(_connectionSettings));
-			descriptor.ThrowIfNull("descriptor");
 			var path = this.Path.GetWarmerPath(descriptor);
 
 			ConnectionStatus status = this.Connection.DeleteSync(path);

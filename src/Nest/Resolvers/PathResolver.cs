@@ -13,7 +13,6 @@ namespace Nest.Resolvers
 		private readonly IConnectionSettings _connectionSettings;
 
 	 
-    
     public PathResolver(IConnectionSettings connectionSettings)
     {
       connectionSettings.ThrowIfNull("hasDefaultIndices");
