@@ -10,6 +10,7 @@ using Nest.Resolvers;
 
 namespace Nest
 {
+
 	public abstract class QueryPathDescriptor<T> : QueryDescriptor<T>, IQueryPathDescriptor where T : class
 	{
 		protected readonly TypeNameResolver typeNameResolver;

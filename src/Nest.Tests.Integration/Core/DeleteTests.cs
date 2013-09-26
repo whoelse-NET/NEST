@@ -238,7 +238,7 @@ namespace Nest.Tests.Integration.Core
 			Assert.True(result.Total == 0);
 
 			//make sure we did not delete all.
-			var countResult = this._client.CountAll<dynamic>(q => q.MatchAll());
+			var countResult = this._client.Count<dynamic>(c=>c.OnAllIndices().Query(q => q.MatchAll()));
 			Assert.True(countResult.IsValid);
 			Assert.Greater(countResult.Count, 0);
 
@@ -269,7 +269,7 @@ namespace Nest.Tests.Integration.Core
 			Assert.True(result.Total == 0);
 
 			//make sure we did not delete all.
-			var countResult = this._client.Count<ElasticSearchProject>(q => q.MatchAll());
+			var countResult = this._client.Count<ElasticSearchProject>(c => c.Query(q=>q.MatchAll()));
 			Assert.True(countResult.IsValid);
 			Assert.Greater(countResult.Count, 0);
 		}
@@ -298,7 +298,7 @@ namespace Nest.Tests.Integration.Core
 			Assert.True(result.Total == 0);
 
 			//make sure we did not delete all.
-			var countResult = this._client.Count<ElasticSearchProject>(q => q.MatchAll());
+			var countResult = this._client.Count<ElasticSearchProject>(c => c.Query(q=>q.MatchAll()));
 			Assert.True(countResult.IsValid);
 			Assert.Greater(countResult.Count, 0);
 

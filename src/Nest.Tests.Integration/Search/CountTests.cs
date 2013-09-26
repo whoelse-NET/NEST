@@ -17,7 +17,7 @@ namespace Nest.Tests.Integration.Search
 		public void SimpleCount()
 		{
 			//does a match_all on the default specified index
-            var countResults = this._client.CountAll<dynamic>(q=>q.MatchAll());
+            var countResults = this._client.Count<dynamic>(c=>c.OnAllTypes().Query(q=>q.MatchAll()));
 
 			Assert.True(countResults.Count > 0);
 		}
@@ -25,11 +25,14 @@ namespace Nest.Tests.Integration.Search
 		[Test]
 		public void SimpleQueryCount()
 		{
-			var countResults = this._client.CountAll<ElasticSearchProject>(q=>q
-				.Fuzzy(fq=>fq
-					.Value(this._LookFor.ToLower())
-					.OnField(f=>f.Followers.First().FirstName)			
-				)
+      var countResults = this._client.Count<ElasticSearchProject>(c => c
+        .OnAllIndices()
+        .Query(q=>q
+          .Fuzzy(fq => fq
+            .Value(this._LookFor.ToLower())
+            .OnField(f => f.Followers.First().FirstName)
+          )
+        )
 			);
 			Assert.True(countResults.Count > 0);
 		}
@@ -38,12 +41,14 @@ namespace Nest.Tests.Integration.Search
 		public void SimpleQueryWithIndexAndTypeCount()
 		{
 			//does a match_all on the default specified index
-			var countResults = this._client.Count<ElasticSearchProject>(q=>q
-				.Fuzzy(fq=>fq
-					.PrefixLength(4)
-					.OnField(f=>f.Followers.First().FirstName)
-					.Value(this._LookFor.ToLower())
-				)
+			var countResults = this._client.Count<ElasticSearchProject>(c=>c
+        .Query(q => q
+				  .Fuzzy(fq=>fq
+					  .PrefixLength(4)
+					  .OnField(f=>f.Followers.First().FirstName)
+					  .Value(this._LookFor.ToLower())
+				  )
+        )
 			);
 			countResults.Count.Should().Be(3);
 		}
@@ -55,13 +60,19 @@ namespace Nest.Tests.Integration.Search
 			var index = ElasticsearchConfiguration.DefaultIndex;
 			var indices = new[] { index, index + "_clone" };
 			var types = new[] { this._client.Infer.TypeName<ElasticSearchProject>() };
-			var countResults = this._client.Count<ElasticSearchProject>(indices, types, q => q
-				.Fuzzy(fq => fq
-					.PrefixLength(4)
-					.OnField(f => f.Followers.First().FirstName)
-					.Value(this._LookFor.ToLower())
-				)
-			);
+			var countResults = this._client.Count<ElasticSearchProject>(c => c
+        .OnIndices(indices)
+        .OnTypes(types)
+        .Query(q=>q
+          .Fuzzy(fq => fq
+					  .PrefixLength(4)
+					  .OnField(f => f.Followers.First().FirstName)
+					  .Value(this._LookFor.ToLower())
+				  )
+        )
+      );
+      
+      
 			countResults.IsValid.Should().Be(true);
 			countResults.Count.Should().Be(3);
 		}
@@ -70,7 +81,7 @@ namespace Nest.Tests.Integration.Search
 		public void SimpleTypedCount()
 		{
 			//does a count over the default index/whatever T resolves to as type name
-			var countResults = this._client.Count<ElasticSearchProject>(q=>q.MatchAll());
+			var countResults = this._client.Count<ElasticSearchProject>(c=>c.Query(q=>q.MatchAll()));
 
 			Assert.True(countResults.Count > 0);
 		}

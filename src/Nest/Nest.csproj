@@ -69,11 +69,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DSL\ClearCacheDescriptor.cs" />
+    <Compile Include="DSL\CountQueryDescriptor.cs" />
     <Compile Include="DSL\Paths\DocumentPath.cs" />
     <Compile Include="Domain\Connection\AsyncRequestOperation.cs" />
     <Compile Include="Domain\Connection\NoTasksHttpConnection.cs" />
     <Compile Include="Domain\Responses\RootVersionInfoResponse.cs" />
     <Compile Include="DSL\Paths\NamePath.cs" />
+    <Compile Include="DSL\Paths\ObjectPathDescriptorBase.cs" />
+    <Compile Include="DSL\Paths\PathDescriptorBase.cs" />
+    <Compile Include="DSL\Paths\TypePathDescriptorBase.cs" />
     <Compile Include="ExposedInternals\ElasticInferrer.cs" />
     <Compile Include="ExposedInternals\ElasticSerializer.cs" />
     <Compile Include="Exception\ConnectionException.cs" />
