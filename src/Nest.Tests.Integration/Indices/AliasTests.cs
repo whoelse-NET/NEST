@@ -20,7 +20,7 @@ namespace Nest.Tests.Integration.Indices
 			Assert.AreEqual(count1.Count, count2.Count);
 			r = this._client.RemoveAlias(index, alias);
       count1 = this._client.Count<dynamic>(c => c.OnIndex(index));
-      count2 = this._client.Count<dynamic>(c => c.OnIndex(index));
+      count2 = this._client.Count<dynamic>(c => c.OnIndex(alias));
 			Assert.AreNotEqual(count1.Count, count2.Count);
 			Assert.False(count2.IsValid);
 		}

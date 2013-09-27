@@ -2,8 +2,8 @@
 
 namespace Nest
 {
-  public abstract class PathDescriptorBase<TPathDescriptor, T>
-    where TPathDescriptor : PathDescriptorBase<TPathDescriptor, T>
+  public abstract class IndicesPathDescriptorBase<TPathDescriptor, T>
+    where TPathDescriptor : IndicesPathDescriptorBase<TPathDescriptor, T>
     where T : class
   {
     internal bool _allIndices { get; set; }
@@ -33,9 +33,25 @@ namespace Nest
       return (TPathDescriptor)this;
     }
     
-    internal IndexPath ToPath(IConnectionSettings settings)
+    internal IndexPath ToPath(IConnectionSettings connectionSettings)
     {
-      return null;
+      var indexPath = new IndexPath();
+      if (this._allIndices)
+        return indexPath;
+
+      var infer = new ElasticInferrer(connectionSettings);
+
+      string indices;
+      if (this._indices.HasAny())
+        indices = string.Join(",", this._indices);
+      else if (this._indices != null) //if set to empty array asume all
+        indices = null;
+      else
+        indices = infer.IndexName<T>();
+
+      indexPath.Index = indices;
+
+      return indexPath;
     }
   }
 }

@@ -1,8 +1,8 @@
 ﻿namespace Nest
 {
-  public abstract class ObjectPathDescriptorBase<TPathDescriptor, T>
-    : PathDescriptorBase<TPathDescriptor, T>
-    where TPathDescriptor : ObjectPathDescriptorBase<TPathDescriptor, T>
+  public abstract class DocumentPathDescriptorBase<TPathDescriptor, T>
+    : TypePathDescriptorBase<TPathDescriptor, T>
+    where TPathDescriptor : DocumentPathDescriptorBase<TPathDescriptor, T>
     where T : class
   {
 

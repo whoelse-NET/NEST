@@ -6,7 +6,7 @@ using Nest.Resolvers;
 namespace Nest
 {
   public abstract class TypesPathDescriptorBase<TPathDescriptor, T>
-    : PathDescriptorBase<TPathDescriptor, T>
+    : IndicesPathDescriptorBase<TPathDescriptor, T>
     where TPathDescriptor : TypesPathDescriptorBase<TPathDescriptor, T>
     where T : class
   {
