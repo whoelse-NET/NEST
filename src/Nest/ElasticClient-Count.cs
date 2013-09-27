@@ -16,12 +16,26 @@ namespace Nest
       var path = descriptor.ToPath(this._connectionSettings);
 
       ConnectionStatus status;
-      if (path.Index.IsNullOrEmpty())
-        status = this.Raw.CountPost(query, queryString: null);
-      else if (path.Type.IsNullOrEmpty())
-        status = this.Raw.CountPost(path.Index, query, queryString: null);
+      if (descriptor._Query == null)
+      {
+        if (path.Index.IsNullOrEmpty())
+          status = this.Raw.CountGet(queryString: null);
+        else if (path.Type.IsNullOrEmpty())
+          status = this.Raw.CountGet(path.Index, queryString: null);
+        else
+          status = this.Raw.CountGet(path.Index, path.Type, queryString: null);
+      }
       else
-        status = this.Raw.CountPost(path.Index, path.Type, query, queryString: null);
+      {
+        if (path.Index.IsNullOrEmpty())
+          status = this.Raw.CountPost(query, queryString: null);
+        else if (path.Type.IsNullOrEmpty())
+          status = this.Raw.CountPost(path.Index, query, queryString: null);
+        else
+          status = this.Raw.CountPost(path.Index, path.Type, query, queryString: null);
+      }
+     
+      
 
       return status.Deserialize<CountResponse>();
 
