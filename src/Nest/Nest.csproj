@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DSL\ClearCacheDescriptor.cs" />
+    <Compile Include="DSL\FlushDescriptor.cs" />
     <Compile Include="DSL\CountQueryDescriptor.cs" />
     <Compile Include="DSL\Paths\IndexPathDescriptorBase.cs" />
     <Compile Include="DSL\Paths\TypePathDescriptorBase.cs" />

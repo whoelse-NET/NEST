@@ -15,20 +15,20 @@ namespace Nest.Tests.Integration
 		{
 			Assert.AreEqual(this._settings.Host, ElasticsearchConfiguration.Settings().Host);
 			Assert.AreEqual(this._settings.Port, Test.Default.Port);
-            Assert.AreEqual(new Uri(string.Format("http://{0}:{1}", ElasticsearchConfiguration.Settings().Host, Test.Default.Port)), this._settings.Uri);
+			Assert.AreEqual(new Uri(string.Format("http://{0}:{1}", ElasticsearchConfiguration.Settings().Host, Test.Default.Port)), this._settings.Uri);
 			Assert.AreEqual(ElasticsearchConfiguration.DefaultIndex, ElasticsearchConfiguration.DefaultIndex);
 			Assert.AreEqual(this._settings.MaximumAsyncConnections, Test.Default.MaximumAsyncConnections);
 		}
-        [Test]
-        public void TestSettingsWithUri()
-        {
-            var uri = new Uri(string.Format("http://{0}:{1}", ElasticsearchConfiguration.Settings().Host, ElasticsearchConfiguration.Settings().Port));
-            var settings = new ConnectionSettings(uri);
-            Assert.AreEqual(settings.Host, ElasticsearchConfiguration.Settings().Host);
-            Assert.AreEqual(settings.Port, Test.Default.Port);
-            Assert.AreEqual(uri, this._settings.Uri);
-        }
-        [Test]
+		[Test]
+		public void TestSettingsWithUri()
+		{
+			var uri = new Uri(string.Format("http://{0}:{1}", ElasticsearchConfiguration.Settings().Host, ElasticsearchConfiguration.Settings().Port));
+			var settings = new ConnectionSettings(uri);
+			Assert.AreEqual(settings.Host, ElasticsearchConfiguration.Settings().Host);
+			Assert.AreEqual(settings.Port, Test.Default.Port);
+			Assert.AreEqual(uri, this._settings.Uri);
+		}
+		[Test]
 		public void TestConnectSuccess()
 		{
 			var rootNodeInfo = _client.RootNodeInfo();
@@ -63,7 +63,7 @@ namespace Nest.Tests.Integration
 			{
 				var settings = new ConnectionSettings(new Uri("some mangled hostname:80"));
 			});
-			
+
 		}
 		[Test]
 		public void connect_to_unknown_hostname()

@@ -1,9 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Nest
 {
 	public partial class ElasticClient
 	{
+
+		public IIndicesOperationResponse Flush<T>(Func<FlushDescriptor<T>, FlushDescriptor<T>> flushSelector) where T : class
+		{
+
+		}
+
+
 		/// <summary>
 		/// <para>Flushes the infered typename for T under the default index </para>
 		/// <para>The flush process of an index basically frees memory from the index by flushing data to the index storage and clearing the internal transaction log. By default, ElasticSearch uses memory heuristics in order to automatically trigger flush operations as required in order to clear memory.</para>
@@ -48,7 +56,7 @@ namespace Nest
 			path += "?refresh=" + refresh.ToString().ToLower();
 			return this._Flush(path);
 		}
-		
+
 		private IndicesOperationResponse _Flush(string path)
 		{
 			var status = this.Connection.PostSync(path, "");
@@ -57,3 +65,5 @@ namespace Nest
 		}
 	}
 }
+
+
