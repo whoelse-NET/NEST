@@ -283,7 +283,9 @@ namespace Nest.Resolvers.Writers
 					return "binary";
 				case FieldType.string_type:
 					return "string";
-				case FieldType.integer_type:
+				case FieldType.short_type:
+					return "short";
+                case FieldType.integer_type:
 					return "integer";
 				case FieldType.long_type:
 					return "long";
@@ -320,6 +322,8 @@ namespace Nest.Resolvers.Writers
 			{
 				switch (propertyType.Name)
 				{
+                    case "Int16":
+                        return FieldType.short_type;
 					case "Int32":
 						return FieldType.integer_type;
 					case "Int64":

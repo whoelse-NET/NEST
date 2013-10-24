@@ -34,6 +34,10 @@ namespace Nest
 		/// Text based string type.
 		/// </summary>
 		string_type,
+        /// <summary>
+        /// Short type.
+        /// </summary>
+        short_type,
 		/// <summary>
 		/// Integer type.
 		/// </summary>
